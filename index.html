@@ -1,0 +1,2374 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
+<meta name="theme-color" content="#0a0e1a"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="SolarStock"/>
+<title>SolarStock — Inventario Fotovoltaico</title>
+<link rel="manifest" href="data:application/json,%7B%22name%22%3A%22SolarStock%22%2C%22short_name%22%3A%22SolarStock%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230a0e1a%22%2C%22theme_color%22%3A%22%230a0e1a%22%2C%22orientation%22%3A%22portrait%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%230a0e1a'/%3E%3Ccircle cx='256' cy='220' r='68' fill='none' stroke='%2300c2ff' stroke-width='22'/%3E%3Cg stroke='%2300c2ff' stroke-width='18' stroke-linecap='round'%3E%3Cline x1='256' y1='108' x2='256' y2='80'/%3E%3Cline x1='256' y1='332' x2='256' y2='360'/%3E%3Cline x1='144' y1='220' x2='116' y2='220'/%3E%3Cline x1='368' y1='220' x2='396' y2='220'/%3E%3Cline x1='180' y1='144' x2='160' y2='124'/%3E%3Cline x1='332' y1='296' x2='352' y2='316'/%3E%3Cline x1='332' y1='144' x2='352' y2='124'/%3E%3Cline x1='180' y1='296' x2='160' y2='316'/%3E%3C/g%3E%3Crect x='148' y='360' width='44' height='72' rx='8' fill='%2300ff94'/%3E%3Crect x='234' y='330' width='44' height='102' rx='8' fill='%2300c2ff'/%3E%3Crect x='320' y='300' width='44' height='132' rx='8' fill='%239b5de5'/%3E%3C/svg%3E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D"/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%230a0e1a'/%3E%3Ccircle cx='256' cy='220' r='68' fill='none' stroke='%2300c2ff' stroke-width='22'/%3E%3Cg stroke='%2300c2ff' stroke-width='18' stroke-linecap='round'%3E%3Cline x1='256' y1='108' x2='256' y2='80'/%3E%3Cline x1='256' y1='332' x2='256' y2='360'/%3E%3Cline x1='144' y1='220' x2='116' y2='220'/%3E%3Cline x1='368' y1='220' x2='396' y2='220'/%3E%3Cline x1='180' y1='144' x2='160' y2='124'/%3E%3Cline x1='332' y1='296' x2='352' y2='316'/%3E%3Cline x1='332' y1='144' x2='352' y2='124'/%3E%3Cline x1='180' y1='296' x2='160' y2='316'/%3E%3C/g%3E%3Crect x='148' y='360' width='44' height='72' rx='8' fill='%2300ff94'/%3E%3Crect x='234' y='330' width='44' height='102' rx='8' fill='%2300c2ff'/%3E%3Crect x='320' y='300' width='44' height='132' rx='8' fill='%239b5de5'/%3E%3C/svg%3E"/>
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%230a0e1a'/%3E%3Ccircle cx='256' cy='220' r='68' fill='none' stroke='%2300c2ff' stroke-width='22'/%3E%3Cg stroke='%2300c2ff' stroke-width='18' stroke-linecap='round'%3E%3Cline x1='256' y1='108' x2='256' y2='80'/%3E%3Cline x1='256' y1='332' x2='256' y2='360'/%3E%3Cline x1='144' y1='220' x2='116' y2='220'/%3E%3Cline x1='368' y1='220' x2='396' y2='220'/%3E%3Cline x1='180' y1='144' x2='160' y2='124'/%3E%3Cline x1='332' y1='296' x2='352' y2='316'/%3E%3Cline x1='332' y1='144' x2='352' y2='124'/%3E%3Cline x1='180' y1='296' x2='160' y2='316'/%3E%3C/g%3E%3Crect x='148' y='360' width='44' height='72' rx='8' fill='%2300ff94'/%3E%3Crect x='234' y='330' width='44' height='102' rx='8' fill='%2300c2ff'/%3E%3Crect x='320' y='300' width='44' height='132' rx='8' fill='%239b5de5'/%3E%3C/svg%3E"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+:root{
+--bg:#0a0e1a;--surface:#111827;--card:#1a2235;--border:#2a3550;
+--text:#f0f4ff;--text2:#8a9bbf;--text3:#4a5878;
+--green:#00ff94;--yellow:#ffe600;--red:#ff3b5c;--blue:#00c2ff;--purple:#9b5de5;
+--green-dim:rgba(0,255,148,.12);--yellow-dim:rgba(255,230,0,.12);--red-dim:rgba(255,59,92,.12);--blue-dim:rgba(0,194,255,.12);--purple-dim:rgba(155,93,229,.12);
+--r:14px;--r-sm:10px;--font:'Outfit',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;max-width:480px;margin:0 auto;overflow-x:hidden;}
+
+/* ── SCREENS ── */
+.screen{display:none;flex-direction:column;min-height:100vh;}
+.screen.active{display:flex;}
+
+/* ── TOPBAR ── */
+.topbar{display:flex;align-items:center;padding:16px 20px 8px;gap:10px;position:sticky;top:0;background:var(--bg);z-index:10;border-bottom:1px solid var(--border);}
+.topbar-title{font-size:17px;font-weight:700;flex:1;}
+.topbar-icon{width:36px;height:36px;border-radius:10px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;transition:background .2s;}
+.topbar-icon:hover{background:var(--border);}
+
+/* ── BOTTOM NAV ── */
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--surface);border-top:1px solid var(--border);display:flex;z-index:20;padding-bottom:env(safe-area-inset-bottom);}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 4px 8px;cursor:pointer;gap:4px;transition:color .2s;color:var(--text2);font-size:10px;font-weight:500;position:relative;}
+.nav-item.active{color:var(--blue);}
+.nav-icon{font-size:22px;line-height:1;}
+.nav-badge{position:absolute;top:6px;right:calc(50% - 16px);background:var(--red);color:#fff;border-radius:10px;font-size:9px;font-weight:700;padding:1px 5px;min-width:16px;text-align:center;}
+
+/* ── SCROLL CONTENT ── */
+.content{flex:1;padding:16px 16px 90px;overflow-y:auto;}
+
+/* ── CARDS ── */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:12px;}
+.card-sm{background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);padding:12px;margin-bottom:10px;}
+
+/* ── BUTTONS ── */
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:13px 20px;border-radius:var(--r-sm);border:none;font-family:var(--font);font-size:15px;font-weight:600;cursor:pointer;transition:opacity .15s,transform .1s;width:100%;}
+.btn:active{transform:scale(.97);}
+.btn-primary{background:var(--blue);color:#0a0e1a;}
+.btn-green{background:var(--green);color:#0a0e1a;}
+.btn-red{background:var(--red);color:#fff;}
+.btn-yellow{background:var(--yellow);color:#0a0e1a;}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text);}
+.btn-sm{padding:8px 14px;font-size:13px;border-radius:8px;width:auto;}
+
+/* ── INPUTS ── */
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;}
+.field input,.field select,.field textarea{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:11px 14px;color:var(--text);font-family:var(--font);font-size:15px;outline:none;transition:border-color .2s;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--blue);}
+.field select option{background:var(--surface);}
+.field textarea{resize:vertical;min-height:80px;}
+
+/* ── STATUS RING ── */
+.ring{border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ring-ok{border:3px solid var(--green);box-shadow:0 0 14px rgba(0,255,148,.3);}
+.ring-warning{border:3px solid var(--yellow);box-shadow:0 0 14px rgba(255,230,0,.3);}
+.ring-critical{border:3px solid var(--red);box-shadow:0 0 14px rgba(255,59,92,.3);animation:pulse 1.5s ease-in-out infinite;}
+@keyframes pulse{0%,100%{box-shadow:0 0 14px rgba(255,59,92,.3);}50%{box-shadow:0 0 24px rgba(255,59,92,.6);}}
+
+/* ── CHIPS ── */
+.chip{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;}
+.chip-ok{background:var(--green-dim);color:var(--green);}
+.chip-warning{background:var(--yellow-dim);color:var(--yellow);}
+.chip-critical{background:var(--red-dim);color:var(--red);}
+.chip-blue{background:var(--blue-dim);color:var(--blue);}
+.chip-purple{background:var(--purple-dim);color:var(--purple);}
+
+/* ── PROGRESS BAR ── */
+.progress-wrap{background:var(--border);border-radius:4px;height:5px;overflow:hidden;margin:8px 0;}
+.progress-bar{height:100%;border-radius:4px;transition:width .4s;}
+
+/* ── LOGIN ── */
+#loginScreen{justify-content:center;align-items:center;padding:32px 24px;}
+.login-logo{width:88px;height:88px;border-radius:50%;background:var(--card);border:2px solid rgba(0,194,255,.4);display:flex;align-items:center;justify-content:center;font-size:44px;margin-bottom:20px;box-shadow:0 0 32px rgba(0,194,255,.2);}
+.login-title{font-size:32px;font-weight:800;color:var(--blue);letter-spacing:-1px;margin-bottom:4px;}
+.login-sub{font-size:14px;color:var(--text2);margin-bottom:36px;}
+.rol-tabs{display:flex;background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:28px;width:100%;}
+.rol-tab{flex:1;padding:10px 6px;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;font-size:12px;font-weight:600;color:var(--text2);transition:all .2s;text-align:center;}
+.rol-tab.active{background:rgba(0,194,255,.12);color:var(--blue);}
+.pin-dots{display:flex;gap:14px;justify-content:center;margin-bottom:28px;}
+.pin-dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--text3);transition:all .2s;}
+.pin-dot.filled{background:var(--blue);border-color:var(--blue);box-shadow:0 0 10px rgba(0,194,255,.5);}
+.numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;}
+.num-key{background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);padding:16px;font-size:22px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,transform .1s;}
+.num-key:active{background:var(--border);transform:scale(.94);}
+.num-key.empty{background:transparent;border:none;cursor:default;}
+.login-hint{font-size:11px;color:var(--text3);margin-top:16px;}
+.error-msg{color:var(--red);font-size:13px;font-weight:500;text-align:center;margin-bottom:10px;min-height:20px;}
+
+/* ── CHANGE PIN SCREEN ── */
+#changePinScreen{justify-content:center;align-items:center;padding:32px 24px;}
+.change-pin-box{width:100%;max-width:320px;display:flex;flex-direction:column;align-items:center;}
+
+/* ── DASHBOARD ── */
+.greeting{background:linear-gradient(135deg,rgba(0,194,255,.1),rgba(155,93,229,.05));border:1px solid rgba(0,194,255,.2);border-radius:var(--r);padding:16px;display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+.greeting-avatar{width:44px;height:44px;border-radius:50%;background:rgba(0,194,255,.15);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.greeting-name{font-size:16px;font-weight:700;}
+.greeting-role{font-size:13px;color:var(--text2);}
+.section-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+.section-card{background:var(--card);border-radius:var(--r);padding:20px 14px;display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer;border:1.5px solid transparent;transition:all .25s;}
+.section-card:active{transform:scale(.97);}
+.section-icon-wrap{font-size:34px;}
+.section-name{font-size:13px;font-weight:700;text-align:center;}
+.section-count{font-size:12px;color:var(--text2);}
+.quick-title{font-size:15px;font-weight:700;margin-bottom:10px;}
+.action-tile{background:var(--card);border-radius:var(--r);padding:14px 16px;display:flex;align-items:center;gap:14px;margin-bottom:10px;cursor:pointer;border:1px solid var(--border);transition:border-color .2s;}
+.action-tile:active{background:var(--surface);}
+.action-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.action-label{font-size:14px;font-weight:700;}
+.action-sub{font-size:12px;color:var(--text2);}
+.banner{border-radius:var(--r-sm);padding:12px 14px;display:flex;align-items:center;gap:10px;margin-bottom:10px;cursor:pointer;}
+.banner-ok{background:var(--green-dim);border:1px solid rgba(0,255,148,.3);}
+.banner-warning{background:var(--yellow-dim);border:1px solid rgba(255,230,0,.3);}
+.banner-critical{background:var(--red-dim);border:1px solid rgba(255,59,92,.3);}
+.banner-blue{background:var(--blue-dim);border:1px solid rgba(0,194,255,.3);}
+.banner-text{flex:1;font-size:13px;font-weight:600;}
+
+/* ── INVENTORY ── */
+.cat-header{font-size:12px;font-weight:800;color:var(--blue);letter-spacing:.8px;text-transform:uppercase;padding:14px 0 8px;}
+
+.status-dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:6px;}
+
+/* ── MODAL / BOTTOM SHEET ── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:50;display:none;align-items:flex-end;justify-content:center;}
+.overlay.active{display:flex;}
+.sheet{background:var(--surface);border-radius:20px 20px 0 0;padding:20px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;border-top:1px solid var(--border);}
+.sheet-handle{width:40px;height:4px;background:var(--border);border-radius:4px;margin:0 auto 20px;}
+.sheet-title{font-size:18px;font-weight:800;margin-bottom:20px;}
+
+/* ── HISTORIAL ── */
+.mov-row{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);}
+.mov-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.mov-name{font-size:14px;font-weight:600;}
+.mov-meta{font-size:12px;color:var(--text2);}
+.mov-qty{font-size:15px;font-weight:800;text-align:right;}
+.mov-estado{font-size:10px;font-weight:700;}
+
+/* ── EMPTY STATE ── */
+.empty{display:flex;flex-direction:column;align-items:center;gap:12px;padding:48px 24px;color:var(--text2);text-align:center;}
+.empty-icon{font-size:56px;opacity:.3;}
+.empty-title{font-size:16px;font-weight:600;}
+.empty-sub{font-size:13px;opacity:.7;}
+
+/* ── DETAIL ── */
+.detail-qty{font-size:48px;font-weight:800;text-align:center;margin:8px 0 4px;}
+.detail-unit{font-size:16px;color:var(--text2);text-align:center;margin-bottom:20px;}
+.info-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);}
+.info-label{font-size:13px;color:var(--text2);display:flex;align-items:center;gap:8px;}
+.info-val{font-size:14px;font-weight:600;}
+
+/* ── ALERTS ── */
+.alert-stat{background:var(--card);border-radius:var(--r);padding:16px;display:flex;align-items:center;gap:14px;}
+.alert-num{font-size:36px;font-weight:800;}
+.alert-lbl{font-size:13px;font-weight:600;}
+
+/* ── CONFIGURACION ── */
+.config-section{margin-bottom:24px;}
+.config-section-title{font-size:12px;font-weight:800;color:var(--blue);letter-spacing:.8px;text-transform:uppercase;padding:0 0 10px;border-bottom:1px solid var(--border);margin-bottom:12px;}
+.config-tile{background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);padding:14px 16px;display:flex;align-items:center;gap:14px;margin-bottom:8px;cursor:pointer;transition:border-color .2s;}
+.config-tile:active{background:var(--surface);}
+.config-tile-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.config-tile-label{font-size:14px;font-weight:700;flex:1;}
+.config-tile-sub{font-size:12px;color:var(--text2);}
+.user-row{background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);padding:14px;display:flex;align-items:center;gap:12px;margin-bottom:8px;}
+.user-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.user-info{flex:1;}
+.user-name{font-size:14px;font-weight:700;}
+.user-role{font-size:12px;color:var(--text2);}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.fade-up{animation:fadeUp .3s ease both;}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);padding:12px 20px;font-size:14px;font-weight:600;z-index:100;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast.green{border-color:rgba(0,255,148,.4);color:var(--green);}
+.toast.red{border-color:rgba(255,59,92,.4);color:var(--red);}
+.toast.yellow{border-color:rgba(255,230,0,.4);color:var(--yellow);}
+
+/* FAB */
+.fab{position:fixed;bottom:80px;right:16px;width:54px;height:54px;border-radius:50%;border:none;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:15;box-shadow:0 4px 20px rgba(0,0,0,.4);transition:transform .15s;}
+.fab:active{transform:scale(.92);}
+
+/* scrollbar */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+
+/* section filter tabs */
+.filter-tabs{display:flex;background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden;margin-bottom:16px;}
+.filter-tab{flex:1;padding:10px;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;font-size:13px;font-weight:600;color:var(--text2);transition:all .2s;}
+.filter-tab.active{background:rgba(0,194,255,.12);color:var(--blue);}
+
+/* ── SYNC ── */
+.sync-step{display:none;flex-direction:column;align-items:center;gap:16px;padding:8px 0;}
+.sync-step.active{display:flex;}
+.sync-qr-wrap{background:#fff;border-radius:16px;padding:16px;display:flex;align-items:center;justify-content:center;}
+.sync-qr-wrap canvas{display:block;}
+.sync-badge{display:inline-flex;align-items:center;gap:6px;background:var(--blue-dim);border:1px solid rgba(0,194,255,.3);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700;color:var(--blue);}
+.sync-pulse{animation:syncPulse 1.8s ease-in-out infinite;}
+@keyframes syncPulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+.sync-log{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);padding:12px;font-size:11px;font-family:monospace;color:var(--text2);max-height:120px;overflow-y:auto;width:100%;line-height:1.8;}
+.scan-area{width:100%;aspect-ratio:1;max-width:280px;background:var(--bg);border:2px dashed var(--border);border-radius:var(--r);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.scan-area video{width:100%;height:100%;object-fit:cover;border-radius:calc(var(--r) - 2px);}
+.scan-line{position:absolute;left:0;right:0;height:2px;background:var(--blue);box-shadow:0 0 10px var(--blue);animation:scanLine 2s linear infinite;}
+@keyframes scanLine{0%{top:10%;}100%{top:90%;}}
+.sync-connected{background:var(--green-dim);border:1px solid rgba(0,255,148,.3);border-radius:var(--r);padding:20px;text-align:center;width:100%;}
+
+/* Icon sizing in containers */
+.nav-icon{font-size:0;display:flex;align-items:center;justify-content:center;}
+.action-icon svg,.config-tile-icon svg{width:22px;height:22px;}
+.mov-icon svg{width:20px;height:20px;}
+.user-avatar svg{width:22px;height:22px;}
+.empty-icon{display:flex;align-items:center;justify-content:center;}
+.topbar-icon svg{width:18px;height:18px;}
+.btn svg{width:15px;height:15px;vertical-align:middle;}
+svg{flex-shrink:0;}
+/* Inventory row fix */
+.insumo-row{display:block;background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);padding:14px;margin-bottom:8px;cursor:pointer;width:100%;box-sizing:border-box;}
+.insumo-row:active{background:var(--surface);}
+.insumo-name{font-size:14px;font-weight:700;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.insumo-qty{font-size:15px;font-weight:800;flex-shrink:0;}
+.insumo-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:4px;}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ LOGIN ══════════════ -->
+<div class="screen active" id="loginScreen">
+  <div class="login-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></div>
+  <div class="login-title">SolarStock</div>
+  <div class="login-sub">Inventario Fotovoltaico</div>
+
+  <div class="rol-tabs" style="width:100%;max-width:320px;">
+    <div class="rol-tab active" id="tabRolGerente" onclick="selectRol('gerente')">🧑‍💼 Gerente</div>
+    <div class="rol-tab" id="tabRolTecho" onclick="selectRol('tecnico_techo')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg> Techo</div>
+    <div class="rol-tab" id="tabRolElec" onclick="selectRol('tecnico_electrico')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="currentColor" stroke="none"/></svg> Eléctrico</div>
+  </div>
+
+  <div class="pin-dots" id="pinDots">
+    <div class="pin-dot" id="dot0"></div>
+    <div class="pin-dot" id="dot1"></div>
+    <div class="pin-dot" id="dot2"></div>
+    <div class="pin-dot" id="dot3"></div>
+  </div>
+
+  <div class="error-msg" id="loginError"></div>
+
+  <div class="numpad" style="max-width:320px;width:100%;">
+    <div class="num-key" onclick="numPress('1')">1</div>
+    <div class="num-key" onclick="numPress('2')">2</div>
+    <div class="num-key" onclick="numPress('3')">3</div>
+    <div class="num-key" onclick="numPress('4')">4</div>
+    <div class="num-key" onclick="numPress('5')">5</div>
+    <div class="num-key" onclick="numPress('6')">6</div>
+    <div class="num-key" onclick="numPress('7')">7</div>
+    <div class="num-key" onclick="numPress('8')">8</div>
+    <div class="num-key" onclick="numPress('9')">9</div>
+    <div class="num-key empty"></div>
+    <div class="num-key" onclick="numPress('0')">0</div>
+    <div class="num-key" onclick="numDel()">⌫</div>
+  </div>
+
+  <div class="login-hint" id="loginHint">Usa tu PIN de 4 dígitos</div>
+</div>
+
+<!-- ══════════════ CAMBIO DE PIN (primer acceso) ══════════════ -->
+<div class="screen" id="changePinScreen">
+  <div class="change-pin-box">
+    <div class="login-logo">🔐</div>
+    <div class="login-title" style="font-size:24px;">Cambia tu PIN</div>
+    <div class="login-sub" id="changePinSub">Es tu primer acceso. Establece un PIN seguro.</div>
+
+    <div style="width:100%;max-width:320px;margin-bottom:12px;">
+      <div class="field"><label>Nuevo PIN (4 dígitos)</label><input type="password" id="newPin1" maxlength="4" inputmode="numeric" pattern="[0-9]*" placeholder="••••" style="letter-spacing:8px;font-size:20px;text-align:center;"/></div>
+      <div class="field"><label>Confirmar PIN</label><input type="password" id="newPin2" maxlength="4" inputmode="numeric" pattern="[0-9]*" placeholder="••••" style="letter-spacing:8px;font-size:20px;text-align:center;"/></div>
+      <div class="error-msg" id="changePinError"></div>
+      <button class="btn btn-primary" onclick="saveNewPin()">💾 Guardar PIN</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ MAIN APP ══════════════ -->
+<div class="screen" id="appScreen">
+
+  <!-- DASHBOARD -->
+  <div id="tabDashboard" class="tab-content">
+    <div class="topbar">
+      <span style="font-size:22px;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
+      <div class="topbar-title">SolarStock</div>
+      <div class="topbar-icon" onclick="logout()" title="Salir"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></div>
+    </div>
+    <div class="content" id="dashContent"></div>
+  </div>
+
+  <!-- INVENTARIO -->
+  <div id="tabInventario" class="tab-content" style="display:none;">
+    <div class="topbar" id="invTopbar">
+      <div class="topbar-icon" id="invBackBtn" onclick="volverInvSelector()" style="display:none;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="topbar-title" id="invTitle"></div>
+    </div>
+    <div class="content" id="invContent"></div>
+  </div>
+
+  <!-- CONFIGURACIÓN (solo gerente) -->
+  <div id="tabConfig" class="tab-content" style="display:none;">
+    <div class="topbar"><div class="topbar-title"></div></div>
+    <div class="content" id="configContent"></div>
+  </div>
+
+  <!-- ALERTAS -->
+  <div id="tabAlertas" class="tab-content" style="display:none;">
+    <div class="topbar"><div class="topbar-title">Alertas</div></div>
+    <div class="content" id="alertContent"></div>
+  </div>
+
+  <!-- HISTORIAL -->
+  <div id="tabHistorial" class="tab-content" style="display:none;">
+    <div class="topbar"><div class="topbar-title">Historial</div></div>
+    <div class="content" id="histContent"></div>
+  </div>
+
+  <!-- BOTTOM NAV (se construye dinámicamente según rol) -->
+  <nav class="bottom-nav" id="bottomNav"></nav>
+</div>
+
+<!-- ══════════════ MODALES ══════════════ -->
+
+<!-- Detalle insumo -->
+<div class="overlay" id="overlayDetalle" onclick="closeOverlay('overlayDetalle')">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sheet-handle"></div>
+    <div id="detalleContent"></div>
+  </div>
+</div>
+
+<!-- Form entrada -->
+<div class="overlay" id="overlayEntrada" onclick="closeOverlay('overlayEntrada')">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">📥 Registrar Entrada</div>
+    <div class="field"><label>Insumo</label><select id="entInsumo"></select></div>
+    <div class="field"><label>Cantidad</label><input type="number" id="entCantidad" min="0.1" step="0.1" placeholder="0"/></div>
+    <div class="field"><label>Fecha</label><input type="date" id="entFecha"/></div>
+    <div class="field"><label>Notas (opcional)</label><textarea id="entNotas" rows="2"></textarea></div>
+    <button class="btn btn-green" onclick="saveEntrada()">✅ Registrar Entrada</button>
+  </div>
+</div>
+
+<!-- Form salida -->
+<div class="overlay" id="overlaySalida" onclick="closeOverlay('overlaySalida')">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title" id="salidaTitle">📤 Registrar Salida</div>
+    <div class="field"><label>Insumo</label><select id="salInsumo"></select></div>
+    <div class="field"><label>Cantidad</label><input type="number" id="salCantidad" min="0.1" step="0.1" placeholder="0"/></div>
+    <div class="field"><label>Fecha</label><input type="date" id="salFecha"/></div>
+    <div class="field"><label>Notas (opcional)</label><textarea id="salNotas" rows="2"></textarea></div>
+    <button class="btn btn-yellow" id="btnSalida" onclick="saveSalida()">📤 Enviar Solicitud</button>
+  </div>
+</div>
+
+<!-- Lista de insumos (config) -->
+<div class="overlay" id="overlayInsumosList" onclick="closeOverlay('overlayInsumosList')">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sheet-handle"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+      <div class="sheet-title" style="margin:0;">📦 Insumos</div>
+      <button class="btn btn-primary btn-sm" onclick="openInsumoForm()">＋ Nuevo</button>
+    </div>
+    <div class="filter-tabs" id="insListFilterTabs">
+      <div class="filter-tab active" id="insListTabTecho" onclick="switchInsListTab('techo')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg> Techo</div>
+      <div class="filter-tab" id="insListTabElec" onclick="switchInsListTab('electrico')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="currentColor" stroke="none"/></svg> Eléctrico</div>
+    </div>
+    <div id="insListContent"></div>
+  </div>
+</div>
+
+<!-- Form insumo -->
+<div class="overlay" id="overlayInsumo" onclick="closeOverlay('overlayInsumo')">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title" id="insumoFormTitle">➕ Nuevo Insumo</div>
+    <input type="hidden" id="insumoEditId"/>
+    <div class="field"><label>Nombre</label><input type="text" id="insNombre" placeholder="Ej: Panel Solar 400W"/></div>
+    <div class="field"><label>Categoría</label><select id="insCategoria"></select></div>
+    <div class="field"><label>Sección</label>
+      <select id="insSeccion">
+        <option value="techo">🏠 Instalación en Techo</option>
+        <option value="electrico">⚡ Instalación Eléctrica</option>
+      </select>
+    </div>
+    <div class="field"><label>Unidad</label>
+      <select id="insUnidad">
+        <option value="piezas">Piezas</option>
+        <option value="metros">Metros</option>
+        <option value="litros">Litros</option>
+        <option value="kg">Kilogramos</option>
+        <option value="rollos">Rollos</option>
+        <option value="cajas">Cajas</option>
+        <option value="juegos">Juegos</option>
+      </select>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div class="field"><label>Stock actual</label><input type="number" id="insCantActual" min="0" step="0.1" placeholder="0"/></div>
+      <div class="field"><label>Stock mínimo</label><input type="number" id="insCantMin" min="0" step="0.1" placeholder="0"/></div>
+    </div>
+    <div class="field"><label>Notas</label><textarea id="insNotas" rows="2"></textarea></div>
+    <button class="btn btn-primary" onclick="saveInsumo()">💾 Guardar Insumo</button>
+  </div>
+</div>
+
+<!-- Form categoría -->
+<div class="overlay" id="overlayCategoria" onclick="closeOverlay('overlayCategoria')">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">🏷️ Gestionar Categorías</div>
+    <div class="field"><label>Nombre</label><input type="text" id="catNombre" placeholder="Ej: Paneles Solares"/></div>
+    <div class="field"><label>Descripción (opcional)</label><input type="text" id="catDesc"/></div>
+    <button class="btn btn-primary" onclick="saveCategoria()" style="margin-bottom:16px;">Agregar Categoría</button>
+    <div id="catList"></div>
+  </div>
+</div>
+
+<!-- Config alertas por insumo -->
+<div class="overlay" id="overlayConfigAlertas" onclick="closeOverlay('overlayConfigAlertas')">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">🔔 Configurar Alertas</div>
+    <div class="filter-tabs">
+      <div class="filter-tab active" id="cfgTabTecho" onclick="switchConfigAlertaTab('techo')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg> Techo</div>
+      <div class="filter-tab" id="cfgTabElec" onclick="switchConfigAlertaTab('electrico')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="currentColor" stroke="none"/></svg> Eléctrico</div>
+    </div>
+    <div id="configAlertasList"></div>
+  </div>
+</div>
+
+<!-- Config alerta insumo individual -->
+<div class="overlay" id="overlayConfigInsumo" onclick="closeOverlay('overlayConfigInsumo')">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title" id="configInsumoTitle">⚙️ Parámetros de Alerta</div>
+    <input type="hidden" id="configInsumoId"/>
+    <div class="field"><label>Stock mínimo</label><input type="number" id="cfgStockMin" min="0" step="0.1" placeholder="0"/></div>
+    <div style="background:var(--blue-dim);border:1px solid rgba(0,194,255,.3);border-radius:var(--r-sm);padding:12px;margin-bottom:14px;font-size:13px;color:var(--blue);">
+      ⚠️ <strong>Crítico</strong> cuando el stock esté por debajo de este valor.<br>
+      🟡 <strong>Advertencia</strong> cuando esté entre este valor y 1.5×.
+    </div>
+    <button class="btn btn-primary" onclick="saveConfigInsumo()">💾 Guardar</button>
+  </div>
+</div>
+
+<!-- Gestión de usuarios -->
+<div class="overlay" id="overlayUsuarios" onclick="closeOverlay('overlayUsuarios')">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">👥 Gestión de Usuarios</div>
+    <div id="usuariosList"></div>
+  </div>
+</div>
+
+<!-- Cambiar PIN de usuario (desde config) -->
+<div class="overlay" id="overlayChangePin" onclick="closeOverlay('overlayChangePin')">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title" id="changePinTitle">🔐 Cambiar PIN</div>
+    <input type="hidden" id="changePinUserId"/>
+    <div class="field"><label>Nuevo PIN (4 dígitos)</label><input type="password" id="cpPin1" maxlength="4" inputmode="numeric" pattern="[0-9]*" placeholder="••••" style="letter-spacing:8px;font-size:20px;text-align:center;"/></div>
+    <div class="field"><label>Confirmar PIN</label><input type="password" id="cpPin2" maxlength="4" inputmode="numeric" pattern="[0-9]*" placeholder="••••" style="letter-spacing:8px;font-size:20px;text-align:center;"/></div>
+    <div class="error-msg" id="cpError"></div>
+    <button class="btn btn-primary" onclick="savePinFromConfig()">💾 Guardar PIN</button>
+  </div>
+</div>
+
+<!-- Pending exits -->
+<div class="overlay" id="overlayPendientes" onclick="closeOverlay('overlayPendientes')">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">⏳ Salidas Pendientes</div>
+    <div id="pendientesList"></div>
+  </div>
+</div>
+
+<!-- Informe WhatsApp -->
+<div class="overlay" id="overlayInforme" onclick="closeOverlay('overlayInforme')">
+  <div class="sheet" onclick="event.stopPropagation()" style="max-height:85vh;">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="2"/><path d="M9 7l3-3 3 3M12 4v8"/></svg> Informe del Día</div>
+    <div id="informePreview" style="background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);padding:14px;font-size:13px;line-height:1.7;white-space:pre-wrap;margin-bottom:16px;max-height:340px;overflow-y:auto;font-family:monospace;color:var(--text2);"></div>
+    <button class="btn btn-green" onclick="enviarPorWhatsApp()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg> Abrir en WhatsApp</button>
+    <button class="btn btn-outline" style="margin-top:10px;" onclick="copiarInforme()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg> Copiar texto</button>
+  </div>
+</div>
+
+<!-- ══ SYNC — Gerente: mostrar QR de oferta ══ -->
+<div class="overlay" id="overlaySyncHost" onclick="">
+  <div class="sheet" onclick="event.stopPropagation()" style="max-height:92vh;">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title" style="margin-bottom:8px;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M5 12.5a7 7 0 0114 0"/><path d="M2 12.5a10 10 0 0120 0"/><circle cx="12" cy="12.5" r="1" fill="currentColor"/><line x1="12" y1="13.5" x2="12" y2="21"/></svg> Sesión de Sincronización</div>
+
+    <!-- Paso 1: mostrar QR oferta -->
+    <div class="sync-step active" id="syncHostStep1">
+      <p style="font-size:13px;color:var(--text2);text-align:center;">Muéstrale este QR al técnico para que se conecte</p>
+      <div class="sync-qr-wrap"><canvas id="qrOferta" width="240" height="240"></canvas></div>
+      <div class="sync-badge sync-pulse">⏳ Esperando que el técnico escanee…</div>
+      <button class="btn btn-primary" style="margin-top:4px;" onclick="scanearRespuestaHost()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="2"/><path d="M9 7l3-3 3 3M12 4v8"/></svg> Escanear respuesta del técnico</button>
+      <button class="btn btn-outline" onclick="syncHostStep2Manual()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> Ingresar respuesta manualmente</button>
+      <button class="btn btn-outline" onclick="closeSyncHost()">Cancelar</button>
+    </div>
+
+    <!-- Paso 1b: escanear QR de respuesta -->
+    <div class="sync-step" id="syncHostStep1b">
+      <p style="font-size:13px;color:var(--text2);text-align:center;">Ahora escanea el QR que muestra el dispositivo del técnico</p>
+      <div class="scan-area" id="scanAreaHost">
+        <video id="videoHost" autoplay playsinline muted></video>
+        <div class="scan-line"></div>
+      </div>
+      <p style="font-size:11px;color:var(--text3);text-align:center;">Apunta la cámara al QR de respuesta</p>
+      <button class="btn btn-outline" onclick="closeSyncHost()">Cancelar</button>
+    </div>
+
+    <!-- Paso 2: respuesta manual (fallback) -->
+    <div class="sync-step" id="syncHostStep2">
+      <p style="font-size:13px;color:var(--text2);text-align:center;">Pega el texto de respuesta que generó el técnico</p>
+      <textarea id="respuestaManualInput" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);padding:12px;color:var(--text);font-family:monospace;font-size:11px;resize:none;height:120px;" placeholder="Pega aquí el código de respuesta…"></textarea>
+      <button class="btn btn-primary" onclick="procesarRespuestaManual()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg> Conectar</button>
+      <button class="btn btn-outline" onclick="closeSyncHost()">Cancelar</button>
+    </div>
+
+    <!-- Paso 3: conectado + progreso -->
+    <div class="sync-step" id="syncHostStep3">
+      <div class="sync-connected">
+        <div style="font-size:36px;margin-bottom:8px;">🔗</div>
+        <div style="font-size:16px;font-weight:800;color:var(--green);margin-bottom:4px;">¡Dispositivos conectados!</div>
+        <div style="font-size:13px;color:var(--text2);" id="syncHostPeer">—</div>
+      </div>
+      <div class="sync-log" id="syncHostLog">Iniciando sincronización…</div>
+      <button class="btn btn-outline" id="syncHostCloseBtn" onclick="closeSyncHost()" style="display:none;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><polyline points="20 6 9 17 4 12"/></svg> Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SYNC — Técnico: escanear QR + mostrar respuesta ══ -->
+<div class="overlay" id="overlaySyncJoin" onclick="">
+  <div class="sheet" onclick="event.stopPropagation()" style="max-height:92vh;">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title" style="margin-bottom:8px;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M5 12.5a7 7 0 0114 0"/><path d="M2 12.5a10 10 0 0120 0"/><circle cx="12" cy="12.5" r="1" fill="currentColor"/><line x1="12" y1="13.5" x2="12" y2="21"/></svg> Unirse a Sincronización</div>
+
+    <!-- Paso 1: escanear QR del gerente -->
+    <div class="sync-step active" id="syncJoinStep1">
+      <p style="font-size:13px;color:var(--text2);text-align:center;">Escanea el QR que muestra el dispositivo del gerente</p>
+      <div class="scan-area" id="scanAreaJoin">
+        <video id="videoJoin" autoplay playsinline muted></video>
+        <div class="scan-line"></div>
+      </div>
+      <button class="btn btn-outline" onclick="syncJoinManual()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> Ingresar código manualmente</button>
+      <button class="btn btn-outline" onclick="closeSyncJoin()">Cancelar</button>
+    </div>
+
+    <!-- Paso 1b: ingresar oferta manual -->
+    <div class="sync-step" id="syncJoinStep1b">
+      <p style="font-size:13px;color:var(--text2);text-align:center;">Pega el texto de oferta del gerente</p>
+      <textarea id="ofertaManualInput" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);padding:12px;color:var(--text);font-family:monospace;font-size:11px;resize:none;height:120px;" placeholder="Pega aquí el código de oferta…"></textarea>
+      <button class="btn btn-primary" onclick="procesarOfertaManual()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Generar respuesta</button>
+      <button class="btn btn-outline" onclick="closeSyncJoin()">Cancelar</button>
+    </div>
+
+    <!-- Paso 2: mostrar QR de respuesta -->
+    <div class="sync-step" id="syncJoinStep2">
+      <p style="font-size:13px;color:var(--text2);text-align:center;">Muéstrale este QR al gerente para completar la conexión</p>
+      <div class="sync-qr-wrap"><canvas id="qrRespuesta" width="240" height="240"></canvas></div>
+      <button class="btn btn-outline btn-sm" onclick="copiarRespuesta()" style="margin-top:-4px;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg> Copiar como texto</button>
+      <div class="sync-badge sync-pulse">⏳ Esperando que el gerente escanee…</div>
+      <button class="btn btn-outline" onclick="closeSyncJoin()">Cancelar</button>
+    </div>
+
+    <!-- Paso 3: conectado -->
+    <div class="sync-step" id="syncJoinStep3">
+      <div class="sync-connected">
+        <div style="font-size:36px;margin-bottom:8px;">🔗</div>
+        <div style="font-size:16px;font-weight:800;color:var(--green);margin-bottom:4px;">¡Conectado con el Gerente!</div>
+        <div style="font-size:13px;color:var(--text2);">Sincronizando datos…</div>
+      </div>
+      <div class="sync-log" id="syncJoinLog">Esperando datos…</div>
+      <button class="btn btn-outline" id="syncJoinCloseBtn" onclick="closeSyncJoin()" style="display:none;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><polyline points="20 6 9 17 4 12"/></svg> Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de confirmación (reemplaza confirm() nativo) -->
+<div class="overlay" id="overlayConfirm" onclick="">
+  <div class="sheet" onclick="event.stopPropagation()" style="max-height:260px;">
+    <div class="sheet-handle"></div>
+    <div style="font-size:17px;font-weight:800;margin-bottom:10px;" id="confirmTitle">¿Confirmar acción?</div>
+    <div style="font-size:14px;color:var(--text2);margin-bottom:24px;" id="confirmMsg"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <button class="btn btn-outline" onclick="resolveConfirm(false)">Cancelar</button>
+      <button class="btn btn-red" id="confirmOkBtn" onclick="resolveConfirm(true)">Eliminar</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ══ ICON HELPER — call inside JS template literals as ${icon('name')} ══
+const _IC={
+  home:"<path d='M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z'/><path d='M9 21V12h6v9'/>",
+  box:"<path d='M21 8l-9-5-9 5v8l9 5 9-5V8z'/><path d='M3 8l9 5 9-5'/><line x1='12' y1='13' x2='12' y2='21'/>",
+  settings:"<circle cx='12' cy='12' r='3'/><path d='M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z'/>",
+  bell:"<path d='M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9'/><path d='M13.73 21a2 2 0 01-3.46 0'/>",
+  list:"<rect x='9' y='3' width='6' height='4' rx='1'/><path d='M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2'/><line x1='9' y1='12' x2='15' y2='12'/><line x1='9' y1='16' x2='13' y2='16'/>",
+  logout:"<path d='M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4'/><polyline points='16 17 21 12 16 7'/><line x1='21' y1='12' x2='9' y2='12'/>",
+  down:"<path d='M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4'/><polyline points='7 10 12 15 17 10'/><line x1='12' y1='15' x2='12' y2='3'/>",
+  up:"<path d='M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4'/><polyline points='17 8 12 3 7 8'/><line x1='12' y1='3' x2='12' y2='15'/>",
+  clock:"<path d='M5 3h14M5 21h14M7 3v4l5 5-5 5v4M17 3v4l-5 5 5 5v4'/>",
+  lock:"<rect x='3' y='11' width='18' height='11' rx='2'/><path d='M7 11V7a5 5 0 0110 0v4'/>",
+  edit:"<path d='M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7'/><path d='M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z'/>",
+  trash:"<polyline points='3 6 5 6 21 6'/><path d='M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6'/><path d='M10 11v6M14 11v6'/><path d='M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2'/>",
+  plus:"<line x1='12' y1='5' x2='12' y2='19'/><line x1='5' y1='12' x2='19' y2='12'/>",
+  phone:"<rect x='5' y='2' width='14' height='20' rx='2'/><line x1='12' y1='18' x2='12.01' y2='18' stroke-width='2'/><path d='M9 7l3-3 3 3M12 4v8'/>",
+  radio:"<path d='M5 12.5a7 7 0 0114 0'/><path d='M2 12.5a10 10 0 0120 0'/><circle cx='12' cy='12.5' r='1' fill='currentColor'/><line x1='12' y1='13.5' x2='12' y2='21'/>",
+  users:"<path d='M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2'/><circle cx='9' cy='7' r='4'/><path d='M23 21v-2a4 4 0 00-3-3.87'/><path d='M16 3.13a4 4 0 010 7.75'/>",
+  tag:"<path d='M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z'/><line x1='7' y1='7' x2='7.01' y2='7' stroke-width='2'/>",
+  manager:"<circle cx='12' cy='7' r='4'/><path d='M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2'/><path d='M9 13l1 2h4l1-2'/>",
+  user:"<circle cx='12' cy='7' r='4'/><path d='M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2'/>",
+  check:"<polyline points='20 6 9 17 4 12'/>",
+  xmark:"<line x1='18' y1='6' x2='6' y2='18'/><line x1='6' y1='6' x2='18' y2='18'/>",
+  warn:"<path d='M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z'/><line x1='12' y1='9' x2='12' y2='13'/><line x1='12' y1='17' x2='12.01' y2='17' stroke-width='2'/>",
+  refresh:"<polyline points='23 4 23 10 17 10'/><polyline points='1 20 1 14 7 14'/><path d='M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15'/>",
+  chat:"<path d='M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z'/>",
+  link:"<path d='M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71'/><path d='M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71'/>",
+  pen:"<path d='M12 20h9'/><path d='M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z'/>",
+  sun:"<circle cx='12' cy='12' r='4'/><line x1='12' y1='2' x2='12' y2='4'/><line x1='12' y1='20' x2='12' y2='22'/><line x1='4.22' y1='4.22' x2='5.64' y2='5.64'/><line x1='18.36' y1='18.36' x2='19.78' y2='19.78'/><line x1='2' y1='12' x2='4' y2='12'/><line x1='20' y1='12' x2='22' y2='12'/><line x1='4.22' y1='19.78' x2='5.64' y2='18.36'/><line x1='18.36' y1='5.64' x2='19.78' y2='4.22'/>",
+  bolt:"<polygon points='13 2 3 14 12 14 11 22 21 10 12 10 13 2' fill='currentColor' stroke='none'/>",
+  file:"<path d='M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z'/><polyline points='14 2 14 8 20 8'/><line x1='16' y1='13' x2='8' y2='13'/><line x1='16' y1='17' x2='8' y2='17'/>",
+  techo:"<path d='M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z'/><path d='M9 21V12h6v9'/>",
+  elec:"<polygon points='13 2 3 14 12 14 11 22 21 10 12 10 13 2' fill='currentColor' stroke='none'/>",
+};
+function icon(name,size){
+  size=size||20;
+  var p=_IC[name]||'';
+  return "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\""+size+"\" height=\""+size+"\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"display:inline-block;vertical-align:middle;flex-shrink:0;\">"+p+"</svg>";
+}
+
+// ══════════════════════════════════════════════════════
+// SEGURIDAD — Hash de PINs con SHA-256
+// ══════════════════════════════════════════════════════
+async function hashPin(pin){
+  const data=new TextEncoder().encode(pin+'solarstock_salt_2024');
+  const buf=await crypto.subtle.digest('SHA-256',data);
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+// ══════════════════════════════════════════════════════
+// DB — IndexedDB
+// ══════════════════════════════════════════════════════
+const DB_NAME='solarstock_v3';const DB_VER=1;let db;
+
+function openDB(){
+  return new Promise((res,rej)=>{
+    const req=indexedDB.open(DB_NAME,DB_VER);
+    req.onupgradeneeded=e=>{
+      const d=e.target.result;
+      if(!d.objectStoreNames.contains('usuarios'))
+        d.createObjectStore('usuarios',{keyPath:'id',autoIncrement:true});
+      if(!d.objectStoreNames.contains('categorias'))
+        d.createObjectStore('categorias',{keyPath:'id',autoIncrement:true});
+      if(!d.objectStoreNames.contains('insumos')){
+        const s=d.createObjectStore('insumos',{keyPath:'id',autoIncrement:true});
+        s.createIndex('seccion','seccion',{unique:false});
+      }
+      if(!d.objectStoreNames.contains('entradas'))
+        d.createObjectStore('entradas',{keyPath:'id',autoIncrement:true});
+      if(!d.objectStoreNames.contains('salidas'))
+        d.createObjectStore('salidas',{keyPath:'id',autoIncrement:true});
+    };
+    req.onsuccess=e=>{db=e.target.result;res(db);};
+    req.onerror=()=>rej(req.error);
+  });
+}
+
+function tx(store,mode='readonly'){return db.transaction(store,mode).objectStore(store);}
+function getAll(store){return new Promise((res,rej)=>{const r=tx(store).getAll();r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);});}
+function get(store,id){return new Promise((res,rej)=>{const r=tx(store).get(id);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);});}
+function put(store,obj){obj.updatedAt=Date.now();return new Promise((res,rej)=>{const r=tx(store,'readwrite').put(obj);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);});}
+function del(store,id){return new Promise((res,rej)=>{const r=tx(store,'readwrite').delete(id);r.onsuccess=()=>res();r.onerror=()=>rej(r.error);});}
+function add(store,obj){if(!obj.updatedAt)obj.updatedAt=Date.now();return new Promise((res,rej)=>{const r=tx(store,'readwrite').add(obj);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);});}
+
+// ══════════════════════════════════════════════════════
+// SEED DATA
+// ══════════════════════════════════════════════════════
+async function seedIfEmpty(){
+  const usuarios=await getAll('usuarios');
+  if(usuarios.length>0)return;
+
+  // PINs hasheados — los valores reales (1234, 0000, 1111) se piden en primer acceso y se reemplazan
+  await add('usuarios',{nombre:'Gerente',rol:'gerente',pinHash:await hashPin('1234'),pinCambiado:false});
+  await add('usuarios',{nombre:'Técnico Techo',rol:'tecnico_techo',pinHash:await hashPin('0000'),pinCambiado:false});
+  await add('usuarios',{nombre:'Técnico Eléctrico',rol:'tecnico_electrico',pinHash:await hashPin('1111'),pinCambiado:false});
+
+  const c1=await add('categorias',{nombre:'Paneles Solares',desc:'Módulos fotovoltaicos'});
+  const c2=await add('categorias',{nombre:'Estructura y Montaje',desc:'Perfiles y soportes'});
+  const c3=await add('categorias',{nombre:'Inversores',desc:'Equipos electrónicos'});
+  const c4=await add('categorias',{nombre:'Cableado',desc:'Cables y conectores'});
+
+  await add('insumos',{nombre:'Panel Solar 400W Monocristalino',catId:c1,unidad:'piezas',actual:15,minima:5,seccion:'techo',notas:''});
+  await add('insumos',{nombre:'Perfil Aluminio 40x40mm',catId:c2,unidad:'metros',actual:50,minima:20,seccion:'techo',notas:''});
+  await add('insumos',{nombre:'Tornillo Autoperforante M8',catId:c2,unidad:'piezas',actual:200,minima:100,seccion:'techo',notas:''});
+  await add('insumos',{nombre:'Inversor Híbrido 5kW',catId:c3,unidad:'piezas',actual:3,minima:2,seccion:'electrico',notas:'Requiere revisión periódica'});
+  await add('insumos',{nombre:'Cable Solar 6mm² (rojo)',catId:c4,unidad:'metros',actual:8,minima:50,seccion:'electrico',notas:''});
+  await add('insumos',{nombre:'Conector MC4 Par',catId:c4,unidad:'piezas',actual:30,minima:20,seccion:'electrico',notas:''});
+}
+
+// ══════════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════════
+let currentUser=null;
+let currentRol='gerente';
+let pinBuffer='';
+let currentTab=0;
+let currentSeccion='techo';
+let configAlertaSeccion='techo';
+
+// ══════════════════════════════════════════════════════
+// ALERT LOGIC
+// ══════════════════════════════════════════════════════
+function nivelAlerta(ins){
+  if(ins.actual<=0)return'critical';
+  if(ins.actual<ins.minima)return'critical';
+  if(ins.actual<ins.minima*1.5)return'warning';
+  return'ok';
+}
+
+function alertasMsgs(ins){
+  const msgs=[];
+  if(ins.actual<=0)msgs.push('Sin stock disponible');
+  else if(ins.actual<ins.minima)msgs.push(`Stock bajo: ${ins.actual} ${ins.unidad} (mín ${ins.minima})`);
+  else if(ins.actual<ins.minima*1.5)msgs.push(`Stock próximo al mínimo`);
+  return msgs;
+}
+
+// ══════════════════════════════════════════════════════
+// LOGIN
+// ══════════════════════════════════════════════════════
+function rolLabel(rol){
+  if(rol==='gerente')return'Gerente';
+  if(rol==='tecnico_techo')return' Téc. Techo';
+  if(rol==='tecnico_electrico')return' Téc. Eléctrico';
+  return rol;
+}
+
+function selectRol(rol){
+  currentRol=rol;
+  document.querySelectorAll('.rol-tab').forEach(t=>t.classList.remove('active'));
+  const map={gerente:'tabRolGerente',tecnico_techo:'tabRolTecho',tecnico_electrico:'tabRolElec'};
+  document.getElementById(map[rol]).classList.add('active');
+  pinBuffer='';updateDots();
+  document.getElementById('loginError').textContent='';
+}
+
+function updateDots(){
+  for(let i=0;i<4;i++)
+    document.getElementById('dot'+i).classList.toggle('filled',i<pinBuffer.length);
+}
+
+function numPress(d){
+  if(pinBuffer.length>=4)return;
+  pinBuffer+=d;updateDots();
+  if(pinBuffer.length===4)setTimeout(doLogin,100);
+}
+
+function numDel(){
+  pinBuffer=pinBuffer.slice(0,-1);updateDots();
+  document.getElementById('loginError').textContent='';
+}
+
+async function doLogin(){
+  const usuarios=await getAll('usuarios');
+  const pinH=await hashPin(pinBuffer);
+  const u=usuarios.find(u=>u.rol===currentRol&&u.pinHash===pinH);
+  if(!u){
+    document.getElementById('loginError').textContent='PIN incorrecto';
+    pinBuffer='';updateDots();return;
+  }
+  currentUser=u;
+  pinBuffer='';updateDots();
+
+  // Si nunca cambió su PIN, lo forzamos a hacerlo
+  if(!u.pinCambiado){
+    document.getElementById('loginScreen').classList.remove('active');
+    document.getElementById('changePinSub').textContent=
+      `Hola ${u.nombre}, es tu primer acceso. Establece un PIN seguro para continuar.`;
+    document.getElementById('changePinScreen').classList.add('active');
+    document.getElementById('newPin1').value='';
+    document.getElementById('newPin2').value='';
+    document.getElementById('changePinError').textContent='';
+    return;
+  }
+
+  enterApp();
+}
+
+async function saveNewPin(){
+  const p1=document.getElementById('newPin1').value;
+  const p2=document.getElementById('newPin2').value;
+  const err=document.getElementById('changePinError');
+  if(!/^\d{4}$/.test(p1)){err.textContent='El PIN debe tener exactamente 4 dígitos numéricos';return;}
+  if(p1!==p2){err.textContent='Los PINs no coinciden';return;}
+  err.textContent='';
+  currentUser.pinHash=await hashPin(p1);
+  delete currentUser.pin; // eliminar campo plano si existiera
+  currentUser.pinCambiado=true;
+  await put('usuarios',currentUser);
+  document.getElementById('changePinScreen').classList.remove('active');
+  toast('PIN establecido correctamente','green');
+  enterApp();
+}
+
+function enterApp(){
+  buildNav();
+  document.getElementById('loginScreen').classList.remove('active');
+  document.getElementById('appScreen').classList.add('active');
+  // Set default seccion según rol
+  if(currentUser.rol==='tecnico_techo')currentSeccion='techo';
+  else if(currentUser.rol==='tecnico_electrico')currentSeccion='electrico';
+  switchTab(0);
+  updateAlertBadge();
+}
+
+function logout(){
+  currentUser=null;pinBuffer='';updateDots();
+  document.getElementById('appScreen').classList.remove('active');
+  document.getElementById('loginScreen').classList.add('active');
+  document.getElementById('loginError').textContent='';
+}
+
+// ══════════════════════════════════════════════════════
+// NAV — dinámica según rol
+// ══════════════════════════════════════════════════════
+function buildNav(){
+  const isG=currentUser.rol==='gerente';
+  // tabs: 0=dashboard, 1=inventario, 2=config(gerente), 3=alertas, 4=historial
+  let html='';
+  if(isG){
+    html=`
+      <div class="nav-item active" id="nav0" onclick="switchTab(0)"><div class="nav-icon">${icon('home',20)}</div><span>Inicio</span></div>
+      <div class="nav-item" id="nav1" onclick="switchTab(1)"><div class="nav-icon">${icon('box',20)}</div><span>Inventario</span></div>
+      <div class="nav-item" id="nav2" onclick="switchTab(2)"><div class="nav-icon">${icon('settings',20)}</div><span>Config</span></div>
+      <div class="nav-item" id="nav3" onclick="switchTab(3)"><div class="nav-icon">${icon('bell',20)}</div><span>Alertas</span><span class="nav-badge" id="alertBadge" style="display:none;"></span></div>
+      <div class="nav-item" id="nav4" onclick="switchTab(4)"><div class="nav-icon">${icon('list',20)}</div><span>Historial</span></div>`;
+  }else{
+    html=`
+      <div class="nav-item active" id="nav0" onclick="switchTab(0)"><div class="nav-icon">${icon('home',20)}</div><span>Inicio</span></div>
+      <div class="nav-item" id="nav1" onclick="switchTab(1)"><div class="nav-icon">${icon('box',20)}</div><span>Inventario</span></div>
+      <div class="nav-item" id="nav3" onclick="switchTab(3)"><div class="nav-icon">${icon('bell',20)}</div><span>Alertas</span><span class="nav-badge" id="alertBadge" style="display:none;"></span></div>
+      <div class="nav-item" id="nav4" onclick="switchTab(4)"><div class="nav-icon">${icon('list',20)}</div><span>Historial</span></div>`;
+  }
+  document.getElementById('bottomNav').innerHTML=html;
+}
+
+// ══════════════════════════════════════════════════════
+// TABS
+// ══════════════════════════════════════════════════════
+const TAB_IDS=['tabDashboard','tabInventario','tabConfig','tabAlertas','tabHistorial'];
+
+async function switchTab(i){
+  TAB_IDS.forEach((id,j)=>{
+    document.getElementById(id).style.display=j===i?'flex':'none';
+  });
+  // Update nav active state
+  for(let j=0;j<5;j++){
+    const el=document.getElementById('nav'+j);
+    if(el)el.classList.toggle('active',j===i);
+  }
+  document.getElementById('tabDashboard').style.flexDirection='column';
+  currentTab=i;
+  if(i===0)await renderDashboard();
+  else if(i===1){if(currentUser.rol==='gerente')currentSeccion=null;await renderInventario();}
+  else if(i===2)await renderConfig();
+  else if(i===3)await renderAlertas();
+  else if(i===4)await renderHistorial();
+}
+
+// ══════════════════════════════════════════════════════
+// DASHBOARD
+// ══════════════════════════════════════════════════════
+async function renderDashboard(){
+  const insumos=await getAll('insumos');
+  const salidas=await getAll('salidas');
+  const pendientes=salidas.filter(s=>s.estado==='pendiente');
+  const alertas=insumos.filter(i=>nivelAlerta(i)!=='ok');
+  const conAlertas=alertas.filter(i=>nivelAlerta(i)==='critical');
+  const isG=currentUser.rol==='gerente';
+  const isTecho=currentUser.rol==='tecnico_techo';
+  const isElec=currentUser.rol==='tecnico_electrico';
+
+  // Para técnicos solo mostrar su sección
+  const visibleInsumos=isG?insumos:insumos.filter(i=>i.seccion===(isTecho?'techo':'electrico'));
+  const techo=insumos.filter(i=>i.seccion==='techo');
+  const elec=insumos.filter(i=>i.seccion==='electrico');
+
+  const nivelSeccion=arr=>{
+    if(arr.some(i=>nivelAlerta(i)==='critical'))return'critical';
+    if(arr.some(i=>nivelAlerta(i)==='warning'))return'warning';
+    return'ok';
+  };
+  const nTecho=nivelSeccion(techo),nElec=nivelSeccion(elec);
+
+  let avatarEmoji=icon('manager',24),rolLabel2='Gerente — Acceso completo';
+  if(isTecho){avatarEmoji=icon('techo',24);rolLabel2='Técnico Techo — Sección Techo';}
+  if(isElec){avatarEmoji=icon('elec',24);rolLabel2='Técnico Eléctrico — Sección Eléctrica';}
+
+  let html=`
+  <div class="greeting fade-up">
+    <div class="greeting-avatar">${avatarEmoji}</div>
+    <div>
+      <div class="greeting-name">Hola, ${esc(currentUser.nombre)}</div>
+      <div class="greeting-role">${esc(rolLabel2)}</div>
+    </div>
+  </div>`;
+
+  const visAlertas=visibleInsumos.filter(i=>nivelAlerta(i)!=='ok');
+  if(visAlertas.length>0){
+    const nivel=visAlertas.some(i=>nivelAlerta(i)==='critical')?'critical':'warning';
+    html+=`<div class="banner banner-${nivel} fade-up" onclick="switchTab(3)">
+      <span>${nivel==='critical'?icon('warn',18):icon('warn',18)}</span>
+      <span class="banner-text">${visAlertas.length} insumo${visAlertas.length>1?'s':''} con alerta activa</span>
+      <span>›</span>
+    </div>`;
+  }
+
+  if(isG&&pendientes.length>0){
+    html+=`<div class="banner banner-blue fade-up" onclick="openPendientes()">
+      <span></span>
+      <span class="banner-text">${pendientes.length} salida${pendientes.length>1?'s':''} pendiente${pendientes.length>1?'s':''} de aprobación</span>
+      <span>›</span>
+    </div>`;
+  }
+
+  // Secciones según rol
+  if(isG){
+    html+=`<div class="quick-title">Secciones de Inventario</div>
+    <div class="section-grid fade-up">
+      <div class="section-card" style="border-color:${nTecho==='critical'?'var(--red)':nTecho==='warning'?'var(--yellow)':'var(--green)'};" onclick="openSeccion('techo')">
+        <div class="ring ring-${nTecho}" style="width:70px;height:70px;">${icon('techo',32)}</div>
+        <div class="section-name">Instalación en Techo</div>
+        <div class="section-count">${techo.length} insumos</div>
+        ${techo.filter(i=>nivelAlerta(i)!=='ok').length>0?`<span class="chip chip-${nTecho}">${techo.filter(i=>nivelAlerta(i)!=='ok').length} alertas</span>`:'<span class="chip chip-ok">✓ OK</span>'}
+      </div>
+      <div class="section-card" style="border-color:${nElec==='critical'?'var(--red)':nElec==='warning'?'var(--yellow)':'var(--green)'};" onclick="openSeccion('electrico')">
+        <div class="ring ring-${nElec}" style="width:70px;height:70px;">${icon('elec',32)}</div>
+        <div class="section-name">Instalación Eléctrica</div>
+        <div class="section-count">${elec.length} insumos</div>
+        ${elec.filter(i=>nivelAlerta(i)!=='ok').length>0?`<span class="chip chip-${nElec}">${elec.filter(i=>nivelAlerta(i)!=='ok').length} alertas</span>`:'<span class="chip chip-ok">✓ OK</span>'}
+      </div>
+    </div>`;
+  }else{
+    const secArr=isTecho?techo:elec;
+    const nSec=isTecho?nTecho:nElec;
+    html+=`<div class="quick-title">Mi Sección</div>
+    <div class="card fade-up" style="border-color:${nSec==='critical'?'var(--red)':nSec==='warning'?'var(--yellow)':'var(--green)'};">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div class="ring ring-${nSec}" style="width:60px;height:60px;">${isTecho?icon('techo',28):icon('elec',28)}</div>
+        <div>
+          <div style="font-size:16px;font-weight:700;">${isTecho?'Instalación en Techo':'Instalación Eléctrica'}</div>
+          <div style="font-size:13px;color:var(--text2);">${secArr.length} insumos</div>
+          ${secArr.filter(i=>nivelAlerta(i)!=='ok').length>0?`<span class="chip chip-${nSec}" style="margin-top:4px;">${secArr.filter(i=>nivelAlerta(i)!=='ok').length} alertas</span>`:'<span class="chip chip-ok" style="margin-top:4px;">✓ OK</span>'}
+        </div>
+      </div>
+    </div>`;
+  }
+
+  html+=`<div class="quick-title">Acciones Rápidas</div>`;
+
+  if(isG){
+    html+=`<div class="action-tile fade-up" onclick="openEntrada()">
+      <div class="action-icon" style="background:var(--green-dim);">${icon('down',22)}</div>
+      <div><div class="action-label">Registrar Entrada</div><div class="action-sub">Agregar stock al inventario</div></div>
+    </div>`;
+  }
+
+  html+=`<div class="action-tile fade-up" onclick="openSalida()">
+    <div class="action-icon" style="background:var(--red-dim);">${icon('up',22)}</div>
+    <div><div class="action-label">Registrar Salida</div><div class="action-sub">${isG?'Descontar stock':'Solicitar salida (requiere aprobación)'}</div></div>
+  </div>`;
+
+  if(isG){
+    html+=`<div class="action-tile fade-up" onclick="openPendientes()">
+      <div class="action-icon" style="background:var(--yellow-dim);">${icon('clock',22)}</div>
+      <div><div class="action-label">Salidas Pendientes</div><div class="action-sub">Aprobar o rechazar solicitudes${pendientes.length>0?' ('+pendientes.length+')':''}</div></div>
+    </div>`;
+  }
+
+  // Botón de informe para técnicos
+  if(!isG){
+    html+=`<div class="action-tile fade-up" onclick="generarInformeWhatsApp()">
+      <div class="action-icon" style="background:rgba(37,211,102,.12);">${icon('phone',22)}</div>
+      <div><div class="action-label">Enviar Informe al Gerente</div><div class="action-sub">Resumen del día vía WhatsApp</div></div>
+    </div>
+    <div class="action-tile fade-up" onclick="abrirSyncJoin()">
+      <div class="action-icon" style="background:var(--purple-dim);">${icon('radio',22)}</div>
+      <div><div class="action-label">Sincronizar con Gerente</div><div class="action-sub">Escanea el QR del dispositivo del gerente</div></div>
+    </div>`;
+  }
+
+  document.getElementById('dashContent').innerHTML=html;
+}
+
+// ══════════════════════════════════════════════════════
+// INVENTARIO
+// ══════════════════════════════════════════════════════
+function openSeccion(sec){currentSeccion=sec;switchTab(1);}
+
+async function renderInventario(){
+  const insumos=await getAll('insumos');
+  const cats=await getAll('categorias');
+  const isG=currentUser.rol==='gerente';
+  const isTecho=currentUser.rol==='tecnico_techo';
+
+  // Técnicos solo ven su sección
+  if(currentUser.rol==='tecnico_techo')currentSeccion='techo';
+  if(currentUser.rol==='tecnico_electrico')currentSeccion='electrico';
+
+  // Gerente: si no hay sección seleccionada, mostrar selector de secciones
+  if(isG && !currentSeccion){
+    const techo=insumos.filter(i=>i.seccion==='techo');
+    const elec=insumos.filter(i=>i.seccion==='electrico');
+    const nivelSeccion=arr=>{
+      if(arr.some(i=>nivelAlerta(i)==='critical'))return'critical';
+      if(arr.some(i=>nivelAlerta(i)==='warning'))return'warning';
+      return'ok';
+    };
+    const nTecho=nivelSeccion(techo),nElec=nivelSeccion(elec);
+    document.getElementById('invTitle').innerHTML='';
+    document.getElementById('invBackBtn').style.display='none';
+    document.getElementById('invContent').innerHTML=`
+      <div style="display:flex;flex-direction:column;gap:16px;height:calc(100vh - 130px);">
+        <div class="section-card" style="
+          flex:1;border-color:${nTecho==='critical'?'var(--red)':nTecho==='warning'?'var(--yellow)':'var(--green)'};
+          display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;margin:0;
+        " onclick="selectInvSeccion('techo')">
+          <div class="ring ring-${nTecho}" style="width:100px;height:100px;">${icon('techo',48)}</div>
+          <div style="font-size:18px;font-weight:800;">Instalación en Techo</div>
+          <div style="font-size:13px;color:var(--text2);">${techo.length} insumos</div>
+          ${techo.filter(i=>nivelAlerta(i)!=='ok').length>0?`<span class="chip chip-${nTecho}" style="font-size:13px;padding:5px 14px;">${techo.filter(i=>nivelAlerta(i)!=='ok').length} alertas</span>`:'<span class="chip chip-ok" style="font-size:13px;padding:5px 14px;">✓ OK</span>'}
+        </div>
+        <div class="section-card" style="
+          flex:1;border-color:${nElec==='critical'?'var(--red)':nElec==='warning'?'var(--yellow)':'var(--green)'};
+          display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;margin:0;
+        " onclick="selectInvSeccion('electrico')">
+          <div class="ring ring-${nElec}" style="width:100px;height:100px;">${icon('elec',48)}</div>
+          <div style="font-size:18px;font-weight:800;">Instalación Eléctrica</div>
+          <div style="font-size:13px;color:var(--text2);">${elec.length} insumos</div>
+          ${elec.filter(i=>nivelAlerta(i)!=='ok').length>0?`<span class="chip chip-${nElec}" style="font-size:13px;padding:5px 14px;">${elec.filter(i=>nivelAlerta(i)!=='ok').length} alertas</span>`:'<span class="chip chip-ok" style="font-size:13px;padding:5px 14px;">✓ OK</span>'}
+        </div>
+      </div>`;
+    return;
+  }
+
+  document.getElementById('invBackBtn').style.display='flex';
+  document.getElementById('invTitle').innerHTML=
+    currentSeccion==='techo'?icon('techo',20):icon('elec',20);
+
+  const secs=insumos.filter(i=>i.seccion===currentSeccion);
+
+  if(secs.length===0){
+    document.getElementById('invContent').innerHTML=`<div class="empty">
+      <div class="empty-icon">${icon('box',20)}</div>
+      <div class="empty-title">Sin insumos</div>
+      <div class="empty-sub">Ve a Configuración › Insumos para registrar el primer insumo</div>
+    </div>`;
+    return;
+  }
+
+  const grouped={};
+  for(const ins of secs){
+    const cat=cats.find(c=>c.id===ins.catId);
+    const catNombre=cat?cat.nombre:'Sin categoría';
+    if(!grouped[catNombre])grouped[catNombre]=[];
+    grouped[catNombre].push(ins);
+  }
+
+  let html='';
+  for(const[catNombre,items]of Object.entries(grouped)){
+    html+=`<div class="cat-header">${catNombre}</div>`;
+    for(const ins of items){
+      const nivel=nivelAlerta(ins);
+      const color=nivel==='critical'?'var(--red)':nivel==='warning'?'var(--yellow)':'var(--green)';
+      const pct=ins.minima>0?Math.min(100,(ins.actual/(ins.minima*2))*100):100;
+      html+=`<div class="insumo-row" onclick="openDetalle(${ins.id})">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+          <span class="status-dot" style="background:${color};box-shadow:0 0 6px ${color};"></span>
+          <span class="insumo-name" style="flex:1;">${esc(ins.nombre)}</span>
+          <span class="insumo-qty" style="color:${color};">${fmtNum(ins.actual)} ${esc(ins.unidad)}</span>
+        </div>
+        <div class="progress-wrap"><div class="progress-bar" style="width:${pct}%;background:${color};"></div></div>
+        <div class="insumo-meta">
+          <span style="font-size:12px;color:var(--text2);">Mín: ${fmtNum(ins.minima)} ${ins.unidad}</span>
+          ${alertasMsgs(ins).length?`<span class="chip chip-${nivel}">${alertasMsgs(ins)[0]}</span>`:''}
+        </div>
+      </div>`;
+    }
+  }
+
+  document.getElementById('invContent').innerHTML=html;
+}
+
+function selectInvSeccion(sec){currentSeccion=sec;renderInventario();}
+function volverInvSelector(){currentSeccion=null;renderInventario();}
+
+// ══════════════════════════════════════════════════════
+// DETALLE INSUMO
+// ══════════════════════════════════════════════════════
+async function openDetalle(id){
+  const ins=await get('insumos',id);
+  const cats=await getAll('categorias');
+  const cat=cats.find(c=>c.id===ins.catId);
+  const nivel=nivelAlerta(ins);
+  const color=nivel==='critical'?'var(--red)':nivel==='warning'?'var(--yellow)':'var(--green)';
+  const msgs=alertasMsgs(ins);
+  const isG=currentUser.rol==='gerente';
+
+  let html=`
+  <div class="ring ring-${nivel}" style="width:100px;height:100px;margin:0 auto 6px;">
+    <div style="text-align:center;">
+      <div style="font-size:36px;font-weight:800;color:${color};margin:0;">${fmtNum(ins.actual)}</div>
+      <div style="font-size:13px;color:${color};">${esc(ins.unidad)}</div>
+    </div>
+  </div>
+  <div style="font-size:18px;font-weight:800;text-align:center;margin-bottom:4px;">${esc(ins.nombre)}</div>
+  <div style="text-align:center;margin-bottom:16px;"><span class="chip chip-${ins.seccion==='techo'?'blue':'purple'}">${ins.seccion==='techo'?' Techo':' Eléctrico'}</span></div>`;
+
+  if(msgs.length){
+    html+=`<div style="margin-bottom:14px;">${msgs.map(m=>`<span class="chip chip-${nivel}" style="margin:2px;">${m}</span>`).join(' ')}</div>`;
+  }
+
+  html+=`
+  <div class="info-row"><span class="info-label"> Categoría</span><span class="info-val">${esc(cat?cat.nombre:'—')}</span></div>
+  <div class="info-row"><span class="info-label"> Unidad</span><span class="info-val">${esc(ins.unidad)}</span></div>
+  <div class="info-row"><span class="info-label"> Stock mínimo</span><span class="info-val">${fmtNum(ins.minima)} ${esc(ins.unidad)}</span></div>`;
+
+  if(ins.notas)html+=`<div class="info-row"><span class="info-label"> Notas</span><span class="info-val" style="max-width:60%;text-align:right;font-size:12px;">${esc(ins.notas)}</span></div>`;
+
+  if(isG){
+    html+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;">
+      <button class="btn btn-outline btn-sm" style="width:100%;" onclick="editInsumo(${ins.id})"> Editar</button>
+      <button class="btn btn-sm" style="width:100%;background:var(--red-dim);color:var(--red);border:1px solid rgba(255,59,92,.3);" onclick="deleteInsumo(${ins.id})"> Eliminar</button>
+    </div>`;
+  }
+
+  document.getElementById('detalleContent').innerHTML=html;
+  openOverlay('overlayDetalle');
+}
+
+// ══════════════════════════════════════════════════════
+// ALERTAS
+// ══════════════════════════════════════════════════════
+async function renderAlertas(){
+  const allInsumos=await getAll('insumos');
+  const isTecho=currentUser.rol==='tecnico_techo';
+  const isElec=currentUser.rol==='tecnico_electrico';
+  const insumos=currentUser.rol==='gerente'?allInsumos:allInsumos.filter(i=>i.seccion===(isTecho?'techo':'electrico'));
+
+  const alertas=insumos.filter(i=>nivelAlerta(i)!=='ok');
+  const criticos=alertas.filter(i=>nivelAlerta(i)==='critical');
+  const warnings=alertas.filter(i=>nivelAlerta(i)==='warning');
+
+  if(alertas.length===0){
+    document.getElementById('alertContent').innerHTML=`<div class="empty">
+      <div class="empty-icon">✅</div><div class="empty-title">¡Todo en orden!</div>
+      <div class="empty-sub">No hay alertas activas en el inventario</div>
+    </div>`;
+    return;
+  }
+
+  let html=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
+    <div class="alert-stat" style="border-color:rgba(255,59,92,.3);">
+      <span class="alert-num" style="color:var(--red);">${criticos.length}</span>
+      <div><div class="alert-lbl" style="color:var(--red);">Críticos</div></div>
+    </div>
+    <div class="alert-stat" style="border-color:rgba(255,230,0,.3);">
+      <span class="alert-num" style="color:var(--yellow);">${warnings.length}</span>
+      <div><div class="alert-lbl" style="color:var(--yellow);">Advertencias</div></div>
+    </div>
+  </div>`;
+
+  if(criticos.length){
+    html+=`<div style="color:var(--red);font-size:13px;font-weight:800;margin-bottom:8px;letter-spacing:.5px;"> CRÍTICOS</div>`;
+    for(const ins of criticos)html+=alertaCard(ins);
+  }
+  if(warnings.length){
+    html+=`<div style="color:var(--yellow);font-size:13px;font-weight:800;margin:14px 0 8px;letter-spacing:.5px;"> ADVERTENCIAS</div>`;
+    for(const ins of warnings)html+=alertaCard(ins);
+  }
+
+  document.getElementById('alertContent').innerHTML=html;
+}
+
+function alertaCard(ins){
+  const nivel=nivelAlerta(ins);
+  const color=nivel==='critical'?'var(--red)':'var(--yellow)';
+  const msgs=alertasMsgs(ins);
+  return `<div class="card-sm" style="border-color:${nivel==='critical'?'rgba(255,59,92,.3)':'rgba(255,230,0,.3)'};cursor:pointer;" onclick="openDetalle(${ins.id})">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+      <span class="status-dot" style="background:${color};"></span>
+      <span style="font-size:14px;font-weight:700;flex:1;">${esc(ins.nombre)}</span>
+      <span style="font-size:11px;color:var(--text2);">${ins.seccion==='techo'?'':''}</span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:4px;">${msgs.map(m=>`<span class="chip chip-${nivel}">${esc(m)}</span>`).join('')}</div>
+  </div>`;
+}
+
+async function updateAlertBadge(){
+  const allInsumos=await getAll('insumos');
+  const isTecho=currentUser&&currentUser.rol==='tecnico_techo';
+  const insumos=currentUser&&currentUser.rol!=='gerente'?allInsumos.filter(i=>i.seccion===(isTecho?'techo':'electrico')):allInsumos;
+  const n=insumos.filter(i=>nivelAlerta(i)!=='ok').length;
+  const badge=document.getElementById('alertBadge');
+  if(!badge)return;
+  if(n>0){badge.textContent=n;badge.style.display='block';}
+  else badge.style.display='none';
+}
+
+// ══════════════════════════════════════════════════════
+// HISTORIAL
+// ══════════════════════════════════════════════════════
+async function renderHistorial(){
+  const entradas=await getAll('entradas');
+  const salidas=await getAll('salidas');
+  const allInsumos=await getAll('insumos');
+  const usuarios=await getAll('usuarios');
+  const isTecho=currentUser.rol==='tecnico_techo';
+  const isElec=currentUser.rol==='tecnico_electrico';
+
+  const insumosFiltrados=currentUser.rol==='gerente'?allInsumos:allInsumos.filter(i=>i.seccion===(isTecho?'techo':'electrico'));
+  const ids=new Set(insumosFiltrados.map(i=>i.id));
+
+  const movs=[
+    ...entradas.filter(e=>ids.has(e.insumoId)).map(e=>({...e,tipo:'entrada'})),
+    ...salidas.filter(s=>ids.has(s.insumoId)).map(s=>({...s,tipo:'salida'})),
+  ].sort((a,b)=>new Date(b.fecha)-new Date(a.fecha));
+
+  if(movs.length===0){
+    document.getElementById('histContent').innerHTML=`<div class="empty">
+      <div class="empty-icon">📋</div><div class="empty-title">Sin movimientos</div>
+      <div class="empty-sub">Aún no hay entradas ni salidas registradas</div>
+    </div>`;
+    return;
+  }
+
+  let html='';
+  for(const m of movs){
+    const ins=allInsumos.find(i=>i.id===m.insumoId);
+    const usr=usuarios.find(u=>u.id===m.usuarioId);
+    const esEntrada=m.tipo==='entrada';
+    const color=esEntrada?'var(--green)':m.estado==='confirmada'?'var(--red)':m.estado==='rechazada'?'var(--text3)':'var(--yellow)';
+    const bg=esEntrada?'var(--green-dim)':m.estado==='confirmada'?'var(--red-dim)':m.estado==='rechazada'?'rgba(74,88,120,.2)':'var(--yellow-dim)';
+    const estadoChip=!esEntrada?`<span class="chip chip-${m.estado==='confirmada'?'critical':m.estado==='rechazada'?'blue':'warning'}" style="font-size:9px;">${m.estado.toUpperCase()}</span>`:'';
+    html+=`<div class="mov-row">
+      <div class="mov-icon" style="background:${bg};">${esEntrada?icon('down',20):icon('up',20)}</div>
+      <div style="flex:1;">
+        <div class="mov-name">${esc(ins?ins.nombre:'Insumo eliminado')}</div>
+        <div class="mov-meta">${fmtDate(m.fecha)} · ${esc(usr?usr.nombre:'—')} ${estadoChip}</div>
+        ${m.notas?`<div style="font-size:11px;color:var(--text3);font-style:italic;">${esc(m.notas)}</div>`:''}
+      </div>
+      <div class="mov-qty" style="color:${color};">${esEntrada?'+':'-'}${fmtNum(m.cantidad)}<br><span style="font-size:11px;color:var(--text2);">${esc(ins?ins.unidad:'')}</span></div>
+    </div>`;
+  }
+
+  document.getElementById('histContent').innerHTML=html;
+}
+
+// ══════════════════════════════════════════════════════
+// CONFIGURACIÓN (solo gerente)
+// ══════════════════════════════════════════════════════
+async function renderConfig(){
+  if(currentUser.rol!=='gerente'){
+    document.getElementById('configContent').innerHTML=`<div class="empty"><div class="empty-icon">🔒</div><div class="empty-title">Acceso restringido</div></div>`;
+    return;
+  }
+  const cats=await getAll('categorias');
+  const usuarios=await getAll('usuarios');
+  const insumos=await getAll('insumos');
+  const alertasCount=insumos.filter(i=>nivelAlerta(i)!=='ok').length;
+
+  document.getElementById('configContent').innerHTML=`
+  <div class="config-section">
+    <div class="config-section-title">Inventario</div>
+    <div class="config-tile" onclick="openCategoria()">
+      <div class="config-tile-icon" style="background:var(--purple-dim);">${icon('tag',20)}</div>
+      <div style="flex:1;"><div class="config-tile-label">Categorías</div><div class="config-tile-sub">${cats.length} categorías registradas</div></div>
+      <span style="color:var(--text3);">›</span>
+    </div>
+    <div class="config-tile" onclick="openInsumosList()">
+      <div class="config-tile-icon" style="background:var(--green-dim);">${icon('box',20)}</div>
+      <div style="flex:1;"><div class="config-tile-label">Insumos</div><div class="config-tile-sub">${insumos.length} insumos registrados · Agregar / editar</div></div>
+      <span style="color:var(--text3);">›</span>
+    </div>
+    <div class="config-tile" onclick="openConfigAlertas()">
+      <div class="config-tile-icon" style="background:var(--yellow-dim);">${icon('bell',20)}</div>
+      <div style="flex:1;"><div class="config-tile-label">Stock mínimo por insumo</div><div class="config-tile-sub">${alertasCount>0?alertasCount+' insumo(s) con alerta':'Todo el stock en rango'}</div></div>
+      <span style="color:var(--text3);">›</span>
+    </div>
+  </div>
+
+  <div class="config-section">
+    <div class="config-section-title">Usuarios</div>
+    <div class="config-tile" onclick="openUsuarios()">
+      <div class="config-tile-icon" style="background:var(--blue-dim);">${icon('users',20)}</div>
+      <div style="flex:1;"><div class="config-tile-label">Gestionar Usuarios</div><div class="config-tile-sub">${usuarios.length} usuarios · Cambiar PINs</div></div>
+      <span style="color:var(--text3);">›</span>
+    </div>
+  </div>
+
+  <div class="config-section">
+    <div class="config-section-title">Sincronización P2P</div>
+    <div class="config-tile" onclick="abrirSyncHost()">
+      <div class="config-tile-icon" style="background:var(--purple-dim);">${icon('radio',22)}</div>
+      <div style="flex:1;"><div class="config-tile-label">Iniciar Sesión de Sync</div><div class="config-tile-sub">Genera un QR para conectar dispositivos</div></div>
+      <span style="color:var(--text3);">›</span>
+    </div>
+  </div>`;
+}
+
+// ══════════════════════════════════════════════════════
+// CONFIG ALERTAS (stock mínimo por insumo)
+// ══════════════════════════════════════════════════════
+async function openConfigAlertas(){
+  configAlertaSeccion='techo';
+  document.getElementById('cfgTabTecho').classList.add('active');
+  document.getElementById('cfgTabElec').classList.remove('active');
+  await renderConfigAlertasList();
+  openOverlay('overlayConfigAlertas');
+}
+
+async function switchConfigAlertaTab(sec){
+  configAlertaSeccion=sec;
+  document.getElementById('cfgTabTecho').classList.toggle('active',sec==='techo');
+  document.getElementById('cfgTabElec').classList.toggle('active',sec==='electrico');
+  await renderConfigAlertasList();
+}
+
+async function renderConfigAlertasList(){
+  const insumos=await getAll('insumos');
+  const sec=insumos.filter(i=>i.seccion===configAlertaSeccion);
+  if(sec.length===0){
+    document.getElementById('configAlertasList').innerHTML=`<div class="empty" style="padding:24px;"><div class="empty-icon">${icon('box',20)}</div><div class="empty-title">Sin insumos</div></div>`;
+    return;
+  }
+  let html='';
+  for(const ins of sec){
+    const nivel=nivelAlerta(ins);
+    const color=nivel==='critical'?'var(--red)':nivel==='warning'?'var(--yellow)':'var(--green)';
+    html+=`<div class="config-tile" onclick="openConfigInsumo(${ins.id})">
+      <span class="status-dot" style="background:${color};box-shadow:0 0 6px ${color};width:11px;height:11px;flex-shrink:0;"></span>
+      <div style="flex:1;">
+        <div class="config-tile-label" style="font-size:13px;">${esc(ins.nombre)}</div>
+        <div class="config-tile-sub">Mín: ${fmtNum(ins.minima)} ${esc(ins.unidad)} · Actual: ${fmtNum(ins.actual)} ${esc(ins.unidad)}</div>
+      </div>
+      <span style="color:var(--text3);">›</span>
+    </div>`;
+  }
+  document.getElementById('configAlertasList').innerHTML=html;
+}
+
+async function openConfigInsumo(id){
+  const ins=await get('insumos',id);
+  document.getElementById('configInsumoId').value=id;
+  document.getElementById('configInsumoTitle').textContent=` ${ins.nombre}`;
+  document.getElementById('cfgStockMin').value=ins.minima;
+  openOverlay('overlayConfigInsumo');
+}
+
+async function saveConfigInsumo(){
+  const id=parseInt(document.getElementById('configInsumoId').value);
+  const minima=parseFloat(document.getElementById('cfgStockMin').value)||0;
+  try{
+    const ins=await get('insumos',id);
+    ins.minima=minima;
+    await put('insumos',ins);
+    toast('Stock mínimo actualizado','green');
+    closeOverlay('overlayConfigInsumo');
+    await renderConfigAlertasList();
+    await updateAlertBadge();
+    await renderConfig();
+  }catch(e){toast('Error al actualizar stock mínimo','red');console.error(e);}
+}
+
+// ══════════════════════════════════════════════════════
+// CATEGORÍAS
+// ══════════════════════════════════════════════════════
+async function openCategoria(){
+  await renderCatList();
+  document.getElementById('catNombre').value='';
+  document.getElementById('catDesc').value='';
+  openOverlay('overlayCategoria');
+}
+
+async function renderCatList(){
+  const cats=await getAll('categorias');
+  document.getElementById('catList').innerHTML=cats.map(c=>`
+    <div style="display:flex;align-items:center;padding:10px 0;border-top:1px solid var(--border);">
+      <div style="flex:1;">
+        <div style="font-size:14px;font-weight:600;">${esc(c.nombre)}</div>
+        ${c.desc?`<div style="font-size:12px;color:var(--text2);">${esc(c.desc)}</div>`:''}
+      </div>
+      <button class="btn btn-sm" style="background:var(--red-dim);color:var(--red);border:1px solid rgba(255,59,92,.3);" onclick="deleteCategoria(${c.id})"></button>
+    </div>`).join('');
+}
+
+async function saveCategoria(){
+  const nombre=document.getElementById('catNombre').value.trim();
+  const desc=document.getElementById('catDesc').value.trim();
+  if(!nombre){toast('El nombre es obligatorio','red');return;}
+  try{
+    await add('categorias',{nombre,desc});
+    document.getElementById('catNombre').value='';
+    document.getElementById('catDesc').value='';
+    await renderCatList();
+    toast('Categoría creada','green');
+  }catch(e){toast('Error al guardar categoría','red');console.error(e);}
+}
+
+async function deleteCategoria(id){
+  const ok=await confirmDialog('Esta acción no se puede deshacer.',' Eliminar','¿Eliminar esta categoría?');
+  if(!ok)return;
+  try{
+    await del('categorias',id);
+    await renderCatList();
+    toast('Categoría eliminada','red');
+  }catch(e){toast('Error al eliminar categoría','red');console.error(e);}
+}
+
+// ══════════════════════════════════════════════════════
+// USUARIOS
+// ══════════════════════════════════════════════════════
+async function openUsuarios(){
+  await renderUsuariosList();
+  openOverlay('overlayUsuarios');
+}
+
+async function renderUsuariosList(){
+  const usuarios=await getAll('usuarios');
+  const iconMap={gerente:icon('manager',22),tecnico_techo:icon('techo',22),tecnico_electrico:icon('elec',22)};
+  const bgMap={gerente:'var(--blue-dim)',tecnico_techo:'rgba(0,255,148,.1)',tecnico_electrico:'var(--yellow-dim)'};
+  let html='';
+  for(const u of usuarios){
+    html+=`<div class="user-row">
+      <div class="user-avatar" style="background:${bgMap[u.rol]||'var(--card)'};">${iconMap[u.rol]||icon('user',22)}</div>
+      <div class="user-info">
+        <div class="user-name">${esc(u.nombre)}</div>
+        <div class="user-role">${esc(rolLabel(u.rol))} · PIN: ${u.pinCambiado?'Personalizado':'PIN inicial'}</div>
+      </div>
+      <button class="btn btn-sm btn-outline" onclick="openChangePin(${u.id},'${esc(u.nombre).replace(/'/g,'\\&#39;')}')"> PIN</button>
+    </div>`;
+  }
+  document.getElementById('usuariosList').innerHTML=html;
+}
+
+function openChangePin(userId,nombre){
+  document.getElementById('changePinUserId').value=userId;
+  document.getElementById('changePinTitle').textContent=` Cambiar PIN — ${nombre}`;
+  document.getElementById('cpPin1').value='';
+  document.getElementById('cpPin2').value='';
+  document.getElementById('cpError').textContent='';
+  openOverlay('overlayChangePin');
+}
+
+async function savePinFromConfig(){
+  const userId=parseInt(document.getElementById('changePinUserId').value);
+  const p1=document.getElementById('cpPin1').value;
+  const p2=document.getElementById('cpPin2').value;
+  const err=document.getElementById('cpError');
+  if(!/^\d{4}$/.test(p1)){err.textContent='El PIN debe tener exactamente 4 dígitos numéricos';return;}
+  if(p1!==p2){err.textContent='Los PINs no coinciden';return;}
+  err.textContent='';
+  const u=await get('usuarios',userId);
+  u.pinHash=await hashPin(p1);
+  delete u.pin;
+  u.pinCambiado=true;
+  await put('usuarios',u);
+  // Si cambió su propio PIN, actualizar currentUser
+  if(currentUser.id===userId){currentUser.pinHash=u.pinHash;currentUser.pinCambiado=true;}
+  closeOverlay('overlayChangePin');
+  await renderUsuariosList();
+  toast('PIN actualizado','green');
+}
+
+// ══════════════════════════════════════════════════════
+// ENTRADAS
+// ══════════════════════════════════════════════════════
+async function openEntrada(){
+  if(currentUser.rol!=='gerente'){toast('Solo el Gerente puede registrar entradas','red');return;}
+  await populateInsumoSelect('entInsumo');
+  document.getElementById('entFecha').value=today();
+  document.getElementById('entCantidad').value='';
+  document.getElementById('entNotas').value='';
+  openOverlay('overlayEntrada');
+}
+
+async function saveEntrada(){
+  const insumoId=parseInt(document.getElementById('entInsumo').value);
+  const cantidad=parseFloat(document.getElementById('entCantidad').value);
+  const fecha=document.getElementById('entFecha').value;
+  const notas=document.getElementById('entNotas').value.trim();
+  if(!insumoId||!cantidad||cantidad<=0||!fecha){toast('Completa todos los campos','red');return;}
+  try{
+    await add('entradas',{insumoId,usuarioId:currentUser.id,cantidad,fecha,notas,createdAt:new Date().toISOString()});
+    const ins=await get('insumos',insumoId);
+    ins.actual=+(ins.actual+cantidad).toFixed(2);
+    await put('insumos',ins);
+    closeOverlay('overlayEntrada');
+    toast(`Entrada de ${cantidad} ${ins.unidad} registrada`,'green');
+    await renderDashboard();
+    await updateAlertBadge();
+  }catch(e){toast('Error al registrar entrada','red');console.error(e);}
+}
+
+// ══════════════════════════════════════════════════════
+// SALIDAS
+// ══════════════════════════════════════════════════════
+async function openSalida(){
+  const isG=currentUser.rol==='gerente';
+  const isTecho=currentUser.rol==='tecnico_techo';
+  // Filtrar insumos por sección si es técnico
+  await populateInsumoSelect('salInsumo', isG?null:(isTecho?'techo':'electrico'));
+  document.getElementById('salFecha').value=today();
+  document.getElementById('salCantidad').value='';
+  document.getElementById('salNotas').value='';
+  document.getElementById('salidaTitle').textContent=isG?' Registrar Salida':' Solicitar Salida';
+  document.getElementById('btnSalida').textContent=isG?' Registrar Salida':' Enviar Solicitud';
+  openOverlay('overlaySalida');
+}
+
+async function saveSalida(){
+  const insumoId=parseInt(document.getElementById('salInsumo').value);
+  const cantidad=parseFloat(document.getElementById('salCantidad').value);
+  const fecha=document.getElementById('salFecha').value;
+  const notas=document.getElementById('salNotas').value.trim();
+  const isG=currentUser.rol==='gerente';
+  if(!insumoId||!cantidad||cantidad<=0||!fecha){toast('Completa todos los campos','red');return;}
+  try{
+    const salidaId=await add('salidas',{insumoId,usuarioId:currentUser.id,cantidad,fecha,notas,estado:'pendiente',aprobadoPor:null,createdAt:new Date().toISOString()});
+    if(isG){
+      await confirmarSalidaById(salidaId,true);
+      return;
+    }
+    closeOverlay('overlaySalida');
+    toast('Solicitud enviada — pendiente de aprobación','yellow');
+    await renderDashboard();
+    await updateAlertBadge();
+  }catch(e){toast('Error al registrar salida','red');console.error(e);}
+}
+
+// ══════════════════════════════════════════════════════
+// PENDIENTES
+// ══════════════════════════════════════════════════════
+async function openPendientes(){
+  const salidas=await getAll('salidas');
+  const insumos=await getAll('insumos');
+  const usuarios=await getAll('usuarios');
+  const pendientes=salidas.filter(s=>s.estado==='pendiente');
+  let html='';
+  if(pendientes.length===0){
+    html=`<div class="empty"><div class="empty-icon">📭</div><div class="empty-title">Sin solicitudes pendientes</div></div>`;
+  }else{
+    for(const s of pendientes){
+      const ins=insumos.find(i=>i.id===s.insumoId);
+      const usr=usuarios.find(u=>u.id===s.usuarioId);
+      html+=`<div class="card" style="border-color:rgba(255,230,0,.3);">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <span class="chip chip-warning">PENDIENTE</span>
+          <span style="font-size:12px;color:var(--text2);">${fmtDate(s.fecha)}</span>
+        </div>
+        <div style="font-size:16px;font-weight:700;margin-bottom:4px;">${esc(ins?ins.nombre:'Insumo eliminado')}</div>
+        <div style="color:var(--red);font-size:18px;font-weight:800;margin-bottom:4px;">-${fmtNum(s.cantidad)} ${esc(ins?ins.unidad:'')}</div>
+        <div style="font-size:12px;color:var(--text2);margin-bottom:${s.notas?8:14}px;">Por: ${esc(usr?usr.nombre:'—')}</div>
+        ${s.notas?`<div style="font-size:12px;font-style:italic;color:var(--text2);margin-bottom:12px;">${esc(s.notas)}</div>`:''}
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <button class="btn btn-sm" style="width:100%;background:var(--red-dim);color:var(--red);border:1px solid rgba(255,59,92,.3);" onclick="confirmarSalidaById(${s.id},false)"> Rechazar</button>
+          <button class="btn btn-sm btn-green" style="width:100%;" onclick="confirmarSalidaById(${s.id},true)"> Confirmar</button>
+        </div>
+      </div>`;
+    }
+  }
+  document.getElementById('pendientesList').innerHTML=html;
+  openOverlay('overlayPendientes');
+}
+
+async function confirmarSalidaById(salidaId,confirmar){
+  try{
+    const s=await get('salidas',salidaId);
+    if(!s)return;
+    s.estado=confirmar?'confirmada':'rechazada';
+    s.aprobadoPor=currentUser.id;
+    await put('salidas',s);
+    if(confirmar){
+      const ins=await get('insumos',s.insumoId);
+      if(ins){ins.actual=Math.max(0,+(ins.actual-s.cantidad).toFixed(2));await put('insumos',ins);}
+      toast('Salida confirmada','green');
+    }else{
+      toast('Salida rechazada','red');
+    }
+    closeOverlay('overlaySalida');
+    closeOverlay('overlayPendientes');
+    await renderDashboard();
+    await updateAlertBadge();
+    if(currentTab===1)await renderInventario();
+  }catch(e){toast('Error al procesar la salida','red');console.error(e);}
+}
+
+// ══════════════════════════════════════════════════════
+// INSUMOS LIST (Configuración)
+// ══════════════════════════════════════════════════════
+let insListSeccion='techo';
+
+async function openInsumosList(){
+  insListSeccion='techo';
+  document.getElementById('insListTabTecho').classList.add('active');
+  document.getElementById('insListTabElec').classList.remove('active');
+  await renderInsListContent();
+  openOverlay('overlayInsumosList');
+}
+
+async function switchInsListTab(sec){
+  insListSeccion=sec;
+  document.getElementById('insListTabTecho').classList.toggle('active',sec==='techo');
+  document.getElementById('insListTabElec').classList.toggle('active',sec==='electrico');
+  await renderInsListContent();
+}
+
+async function renderInsListContent(){
+  const insumos=await getAll('insumos');
+  const cats=await getAll('categorias');
+  const sec=insumos.filter(i=>i.seccion===insListSeccion);
+
+  if(sec.length===0){
+    document.getElementById('insListContent').innerHTML=`<div class="empty" style="padding:24px;">
+      <div class="empty-icon">${icon('box',20)}</div>
+      <div class="empty-title">Sin insumos</div>
+      <div class="empty-sub">Toca ＋ Nuevo para agregar</div>
+    </div>`;
+    return;
+  }
+
+  // Agrupar por categoría
+  const grouped={};
+  for(const ins of sec){
+    const cat=cats.find(c=>c.id===ins.catId);
+    const catNombre=cat?cat.nombre:'Sin categoría';
+    if(!grouped[catNombre])grouped[catNombre]=[];
+    grouped[catNombre].push(ins);
+  }
+
+  let html='';
+  for(const[catNombre,items] of Object.entries(grouped)){
+    html+=`<div style="font-size:11px;font-weight:800;color:var(--blue);letter-spacing:.6px;text-transform:uppercase;padding:10px 0 6px;">${catNombre}</div>`;
+    for(const ins of items){
+      const nivel=nivelAlerta(ins);
+      const color=nivel==='critical'?'var(--red)':nivel==='warning'?'var(--yellow)':'var(--green)';
+      html+=`<div class="config-tile" style="margin-bottom:6px;">
+        <span class="status-dot" style="background:${color};box-shadow:0 0 5px ${color};width:10px;height:10px;flex-shrink:0;"></span>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:700;">${esc(ins.nombre)}</div>
+          <div style="font-size:12px;color:var(--text2);">${fmtNum(ins.actual)} ${esc(ins.unidad)} · Mín: ${fmtNum(ins.minima)}</div>
+        </div>
+        <div style="display:flex;gap:6px;">
+          <button class="btn btn-sm btn-outline" style="padding:6px 10px;" onclick="editInsumo(${ins.id})"></button>
+          <button class="btn btn-sm" style="padding:6px 10px;background:var(--red-dim);color:var(--red);border:1px solid rgba(255,59,92,.3);" onclick="deleteInsumoFromList(${ins.id})"></button>
+        </div>
+      </div>`;
+    }
+  }
+  document.getElementById('insListContent').innerHTML=html;
+}
+
+// ══════════════════════════════════════════════════════
+// INSUMOS CRUD
+// ══════════════════════════════════════════════════════
+async function openInsumoForm(){
+  document.getElementById('insumoEditId').value='';
+  document.getElementById('insumoFormTitle').textContent=' Nuevo Insumo';
+  document.getElementById('insNombre').value='';
+  document.getElementById('insSeccion').value=insListSeccion||currentSeccion;
+  document.getElementById('insUnidad').value='piezas';
+  document.getElementById('insCantActual').value='0';
+  document.getElementById('insCantMin').value='0';
+  document.getElementById('insNotas').value='';
+  await populateCatSelect('insCategoria');
+  openOverlay('overlayInsumo');
+}
+
+async function editInsumo(id){
+  const ins=await get('insumos',id);
+  document.getElementById('insumoEditId').value=id;
+  document.getElementById('insumoFormTitle').textContent=' Editar Insumo';
+  document.getElementById('insNombre').value=ins.nombre;
+  document.getElementById('insSeccion').value=ins.seccion;
+  document.getElementById('insUnidad').value=ins.unidad;
+  document.getElementById('insCantActual').value=ins.actual;
+  document.getElementById('insCantMin').value=ins.minima;
+  document.getElementById('insNotas').value=ins.notas||'';
+  await populateCatSelect('insCategoria',ins.catId);
+  openOverlay('overlayInsumo');
+}
+
+async function saveInsumo(){
+  const editId=document.getElementById('insumoEditId').value;
+  const nombre=document.getElementById('insNombre').value.trim();
+  const catId=parseInt(document.getElementById('insCategoria').value);
+  const seccion=document.getElementById('insSeccion').value;
+  const unidad=document.getElementById('insUnidad').value;
+  const actual=parseFloat(document.getElementById('insCantActual').value)||0;
+  const minima=parseFloat(document.getElementById('insCantMin').value)||0;
+  const notas=document.getElementById('insNotas').value.trim();
+  if(!nombre){toast('El nombre es obligatorio','red');return;}
+  try{
+    const obj={nombre,catId,seccion,unidad,actual,minima,notas};
+    if(editId){
+      obj.id=parseInt(editId);
+      await put('insumos',obj);
+      toast('Insumo actualizado','green');
+    }else{
+      await add('insumos',obj);
+      toast('Insumo creado','green');
+    }
+    insListSeccion=seccion;
+    closeOverlay('overlayInsumo');
+    await renderInsListContent();
+    await updateAlertBadge();
+    await renderConfig();
+    if(currentTab===1)await renderInventario();
+  }catch(e){toast('Error al guardar insumo','red');console.error(e);}
+}
+
+async function deleteInsumo(id){
+  const ok=await confirmDialog('Esta acción no se puede deshacer.',' Eliminar','¿Eliminar este insumo?');
+  if(!ok)return;
+  try{
+    await del('insumos',id);
+    closeOverlay('overlayDetalle');
+    toast('Insumo eliminado','red');
+    await renderInventario();
+    await renderDashboard();
+    await updateAlertBadge();
+  }catch(e){toast('Error al eliminar insumo','red');console.error(e);}
+}
+
+async function deleteInsumoFromList(id){
+  const ok=await confirmDialog('Esta acción no se puede deshacer.',' Eliminar','¿Eliminar este insumo?');
+  if(!ok)return;
+  try{
+    await del('insumos',id);
+    toast('Insumo eliminado','red');
+    await renderInsListContent();
+    await renderConfig();
+    await updateAlertBadge();
+  }catch(e){toast('Error al eliminar insumo','red');console.error(e);}
+}
+
+// ══════════════════════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════════════════════
+async function populateInsumoSelect(selId, seccionFiltro=null){
+  const insumos=await getAll('insumos');
+  const filtrados=seccionFiltro?insumos.filter(i=>i.seccion===seccionFiltro):insumos;
+  document.getElementById(selId).innerHTML=
+    filtrados.map(i=>`<option value="${i.id}">${i.nombre} (${fmtNum(i.actual)} ${i.unidad})</option>`).join('');
+}
+
+async function populateCatSelect(selId,selectedId=null){
+  const cats=await getAll('categorias');
+  document.getElementById(selId).innerHTML=
+    cats.map(c=>`<option value="${c.id}"${c.id===selectedId?' selected':''}>${c.nombre}</option>`).join('');
+}
+
+function fmtNum(n){
+  if(n===undefined||n===null)return'0';
+  return n%1===0?n.toString():n.toFixed(1);
+}
+
+function fmtDate(d){
+  if(!d)return'—';
+  const[y,m,day]=d.split('-');
+  return`${day}/${m}/${y}`;
+}
+
+function today(){return new Date().toISOString().slice(0,10);}
+
+function openOverlay(id){document.getElementById(id).classList.add('active');}
+function closeOverlay(id){if(id)document.getElementById(id).classList.remove('active');}
+
+let toastTimer;
+function toast(msg,type='green'){
+  const el=document.getElementById('toast');
+  el.textContent=msg;
+  el.className=`toast show ${type}`;
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.classList.remove('show'),3000);
+}
+
+// ══════════════════════════════════════════════════════
+// MODAL DE CONFIRMACIÓN (reemplaza confirm() nativo)
+// ══════════════════════════════════════════════════════
+let _confirmResolve=null;
+function confirmDialog(msg,okLabel='Eliminar',title='¿Confirmar acción?'){
+  return new Promise(resolve=>{
+    _confirmResolve=resolve;
+    document.getElementById('confirmTitle').textContent=title;
+    document.getElementById('confirmMsg').textContent=msg;
+    document.getElementById('confirmOkBtn').textContent=okLabel;
+    document.getElementById('overlayConfirm').classList.add('active');
+  });
+}
+function resolveConfirm(ok){
+  document.getElementById('overlayConfirm').classList.remove('active');
+  if(_confirmResolve){_confirmResolve(ok);_confirmResolve=null;}
+}
+
+// ══════════════════════════════════════════════════════
+// SANITIZACIÓN — prevenir XSS en innerHTML
+// ══════════════════════════════════════════════════════
+function esc(str){
+  if(str===null||str===undefined)return'';
+  return String(str)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#039;');
+}
+
+// ══════════════════════════════════════════════════════
+// INFORME WHATSAPP (para técnicos)
+// ══════════════════════════════════════════════════════
+let _informeTexto='';
+
+async function generarInformeWhatsApp(){
+  const allInsumos=await getAll('insumos');
+  const entradas=await getAll('entradas');
+  const salidas=await getAll('salidas');
+  const isTecho=currentUser.rol==='tecnico_techo';
+  const seccion=isTecho?'techo':'electrico';
+  const secLabel=isTecho?'Techo':'Electrico';
+  const fechaHoy=today();
+
+  const insumosSec=allInsumos.filter(i=>i.seccion===seccion);
+  const idsSet=new Set(insumosSec.map(i=>i.id));
+
+  // Movimientos del día
+  const entradasHoy=entradas.filter(e=>e.fecha===fechaHoy&&idsSet.has(e.insumoId)&&e.usuarioId===currentUser.id);
+  const salidasHoy=salidas.filter(s=>s.fecha===fechaHoy&&idsSet.has(s.insumoId)&&s.usuarioId===currentUser.id);
+
+  // Alertas activas de su sección
+  const alertas=insumosSec.filter(i=>nivelAlerta(i)!=='ok');
+  const criticos=alertas.filter(i=>nivelAlerta(i)==='critical');
+  const warnings=alertas.filter(i=>nivelAlerta(i)==='warning');
+
+  const dFecha=fechaHoy.split('-').reverse().join('/');
+  let txt=` *SOLARSTOCK — INFORME DIARIO*\n`;
+  txt+=`${dFecha}  |  ${secLabel}\n`;
+  txt+=`${currentUser.nombre}\n`;
+  txt+=`${'─'.repeat(30)}\n\n`;
+
+  if(entradasHoy.length>0){
+    txt+=`*ENTRADAS HOY (${entradasHoy.length})*\n`;
+    for(const e of entradasHoy){
+      const ins=allInsumos.find(i=>i.id===e.insumoId);
+      txt+=`  + ${ins?ins.nombre:'?'}: +${fmtNum(e.cantidad)} ${ins?ins.unidad:''}\n`;
+      if(e.notas)txt+=`     ${e.notas}\n`;
+    }
+    txt+='\n';
+  }
+
+  if(salidasHoy.length>0){
+    txt+=`*SALIDAS HOY (${salidasHoy.length})*\n`;
+    for(const s of salidasHoy){
+      const ins=allInsumos.find(i=>i.id===s.insumoId);
+      const est=s.estado==='pendiente'?' Pendiente':s.estado==='confirmada'?' Confirmada':' Rechazada';
+      txt+=`  • ${ins?ins.nombre:'?'}: -${fmtNum(s.cantidad)} ${ins?ins.unidad:''} [${est}]\n`;
+      if(s.notas)txt+=`     ${s.notas}\n`;
+    }
+    txt+='\n';
+  }
+
+  if(entradasHoy.length===0&&salidasHoy.length===0){
+    txt+=`Sin movimientos registrados hoy.\n\n`;
+  }
+
+  if(criticos.length>0){
+    txt+=`*STOCK CRÍTICO (${criticos.length})*\n`;
+    for(const i of criticos)txt+=`  • ${i.nombre}: ${fmtNum(i.actual)} ${i.unidad} (mín ${fmtNum(i.minima)})\n`;
+    txt+='\n';
+  }
+  if(warnings.length>0){
+    txt+=`*STOCK BAJO BAJO (${warnings.length})*\n`;
+    for(const i of warnings)txt+=`  • ${i.nombre}: ${fmtNum(i.actual)} ${i.unidad} (mín ${fmtNum(i.minima)})\n`;
+    txt+='\n';
+  }
+  if(alertas.length===0){
+    txt+=`Sin alertas de stock.\n\n`;
+  }
+
+  txt+=`${'─'.repeat(30)}\n_Enviado desde SolarStock_`;
+
+  _informeTexto=txt;
+  document.getElementById('informePreview').textContent=txt;
+  openOverlay('overlayInforme');
+}
+
+function enviarPorWhatsApp(){
+  const encoded=encodeURIComponent(_informeTexto);
+  // Intenta abrir app nativa de WhatsApp; si no, abre web
+  const url=`whatsapp://send?text=${encoded}`;
+  const fallback=`https://wa.me/?text=${encoded}`;
+  const a=document.createElement('a');
+  a.href=url;a.target='_blank';
+  try{a.click();}catch(e){window.open(fallback,'_blank');}
+  // Fallback después de 1 segundo si la app no abre
+  setTimeout(()=>{if(document.hasFocus())window.open(fallback,'_blank');},1200);
+}
+
+async function copiarInforme(){
+  try{
+    await navigator.clipboard.writeText(_informeTexto);
+    toast('Texto copiado al portapapeles','green');
+  }catch(e){
+    // Fallback para navegadores sin clipboard API
+    const ta=document.createElement('textarea');
+    ta.value=_informeTexto;
+    ta.style.position='fixed';ta.style.opacity='0';
+    document.body.appendChild(ta);ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    toast('Texto copiado','green');
+  }
+}
+
+
+
+// ══════════════════════════════════════════════════════
+// QR GENERATOR — qrcode.js vía CDN
+// ══════════════════════════════════════════════════════
+let _qrLibLoaded=false;
+async function ensureQRLib(){
+  if(_qrLibLoaded)return;
+  await new Promise((res,rej)=>{
+    const s=document.createElement('script');
+    s.src='https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+    s.onload=()=>{_qrLibLoaded=true;res();};s.onerror=rej;
+    document.head.appendChild(s);
+  });
+}
+
+async function drawQR(canvasId,text){
+  await ensureQRLib();
+  const canvas=document.getElementById(canvasId);
+  if(!canvas)return;
+  // Limpiar canvas
+  const ctx=canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  // Usar div temporal fuera de pantalla
+  const div=document.createElement('div');
+  div.style.cssText='position:fixed;left:-9999px;top:-9999px;';
+  document.body.appendChild(div);
+  try{
+    new QRCode(div,{text,width:220,height:220,correctLevel:QRCode.CorrectLevel.M});
+    // Esperar a que la librería genere la imagen (puede ser img o canvas)
+    await new Promise(r=>setTimeout(r,300));
+    const src=div.querySelector('canvas')||div.querySelector('img');
+    if(!src){throw new Error('QRCode no generó elemento');}
+    // Si es img, esperar a que cargue
+    if(src.tagName==='IMG'&&!src.complete){
+      await new Promise((r,j)=>{src.onload=r;src.onerror=j;setTimeout(r,1000);});
+    }
+    ctx.fillStyle='#ffffff';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.drawImage(src,10,10,220,220);
+  }finally{
+    document.body.removeChild(div);
+  }
+}
+
+// ══════════════════════════════════════════════════════
+// QR SCANNER — jsQR vía CDN
+// ══════════════════════════════════════════════════════
+let _jsQRLoaded=false;
+async function ensureJsQR(){
+  if(_jsQRLoaded)return;
+  await new Promise((res,rej)=>{
+    const s=document.createElement('script');
+    s.src='https://cdnjs.cloudflare.com/ajax/libs/jsQR/1.4.0/jsQR.min.js';
+    s.onload=()=>{_jsQRLoaded=true;res();};s.onerror=rej;
+    document.head.appendChild(s);
+  });
+}
+
+let _scanStream=null,_scanTimer=null,_scanActive=false;
+
+async function startScanner(videoId,onResult){
+  if(_scanActive)return;
+  _scanActive=true;
+  await ensureJsQR();
+  const video=document.getElementById(videoId);
+  if(!video)throw new Error('no video element');
+  try{
+    _scanStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'},audio:false});
+  }catch(e){
+    _scanActive=false;
+    toast('Cámara no disponible — usa el código manual','yellow');
+    throw e;
+  }
+  video.srcObject=_scanStream;
+  await video.play().catch(()=>{});
+  const sc=document.createElement('canvas');
+  const scx=sc.getContext('2d');
+  _scanTimer=setInterval(()=>{
+    if(!_scanActive||video.readyState<video.HAVE_ENOUGH_DATA)return;
+    sc.width=video.videoWidth||320;sc.height=video.videoHeight||240;
+    scx.drawImage(video,0,0);
+    const id=scx.getImageData(0,0,sc.width,sc.height);
+    const code=jsQR(id.data,id.width,id.height,{inversionAttempts:'dontInvert'});
+    if(code&&code.data){stopScanner();onResult(code.data);}
+  },250);
+}
+
+function stopScanner(){
+  _scanActive=false;
+  clearInterval(_scanTimer);_scanTimer=null;
+  if(_scanStream){_scanStream.getTracks().forEach(t=>t.stop());_scanStream=null;}
+}
+
+// ══════════════════════════════════════════════════════
+// SYNC — DATOS
+// ══════════════════════════════════════════════════════
+function getDeviceId(){
+  let id=localStorage.getItem('ss_did');
+  if(!id){id=Math.random().toString(36).slice(2)+Date.now().toString(36);localStorage.setItem('ss_did',id);}
+  return id;
+}
+
+async function getAllForSync(){
+  const [categorias,insumos,entradas,salidas,usuarios]=await Promise.all([
+    getAll('categorias'),getAll('insumos'),getAll('entradas'),getAll('salidas'),getAll('usuarios')
+  ]);
+  const usuariosSafe=usuarios.map(({id,nombre,rol,pinCambiado,updatedAt})=>({id,nombre,rol,pinCambiado,updatedAt:updatedAt||0}));
+  return{categorias,insumos,entradas,salidas,usuarios:usuariosSafe,deviceId:getDeviceId(),ts:Date.now()};
+}
+
+// ══════════════════════════════════════════════════════
+// SYNC — MERGE (last-write-wins por updatedAt)
+// ══════════════════════════════════════════════════════
+async function mergeRemoteData(remote){
+  const log=[];
+  try{
+    // Categorias
+    const lCatMap=new Map((await getAll('categorias')).map(c=>[c.id,c]));
+    for(const rc of (remote.categorias||[])){
+      const lc=lCatMap.get(rc.id);
+      if(!lc){await _dbAdd('categorias',rc);log.push('+ Cat: '+rc.nombre);}
+      else if((rc.updatedAt||0)>(lc.updatedAt||0)){await _dbPut('categorias',rc);log.push('\u2191 Cat: '+rc.nombre);}
+    }
+    // Insumos
+    const lInsMap=new Map((await getAll('insumos')).map(i=>[i.id,i]));
+    for(const ri of (remote.insumos||[])){
+      const li=lInsMap.get(ri.id);
+      if(!li){await _dbAdd('insumos',ri);log.push('+ Insumo: '+ri.nombre);}
+      else if((ri.updatedAt||0)>(li.updatedAt||0)){await _dbPut('insumos',ri);log.push('\u2191 Insumo: '+ri.nombre+' \u2192 '+ri.actual+' '+ri.unidad);}
+    }
+    // Entradas — solo acumular
+    const lEntIds=new Set((await getAll('entradas')).map(e=>e.id));
+    let nEnt=0;
+    for(const re of (remote.entradas||[])){if(!lEntIds.has(re.id)){await _dbAdd('entradas',re);nEnt++;}}
+    if(nEnt)log.push('+ '+nEnt+' entrada(s) nueva(s)');
+    // Salidas — acumular + actualizar estado
+    const lSalMap=new Map((await getAll('salidas')).map(s=>[s.id,s]));
+    let nSal=0,uSal=0;
+    for(const rs of (remote.salidas||[])){
+      const ls=lSalMap.get(rs.id);
+      if(!ls){await _dbAdd('salidas',rs);nSal++;}
+      else if((rs.updatedAt||0)>(ls.updatedAt||0)){await _dbPut('salidas',rs);uSal++;}
+    }
+    if(nSal)log.push('+ '+nSal+' salida(s) nueva(s)');
+    if(uSal)log.push('\u2191 '+uSal+' salida(s) actualizada(s)');
+    // Usuarios — solo nombre/rol, jamas PIN
+    const lUsrMap=new Map((await getAll('usuarios')).map(u=>[u.id,u]));
+    for(const ru of (remote.usuarios||[])){
+      const lu=lUsrMap.get(ru.id);
+      if(lu&&(ru.updatedAt||0)>(lu.updatedAt||0)){lu.nombre=ru.nombre;lu.rol=ru.rol;lu.updatedAt=ru.updatedAt;await _dbPut('usuarios',lu);}
+    }
+    log.push('\u2705 Sincronizacion completada');
+  }catch(e){log.push('\u26a0\ufe0f Error: '+e.message);console.error('mergeRemoteData',e);}
+  return log;
+}
+
+// ══════════════════════════════════════════════════════
+// SYNC — PROTOCOLO DE MENSAJES (fragmentado + marker)
+// ══════════════════════════════════════════════════════
+const SYNC_CHUNK=15000;
+const SYNC_END='{"tipo":"syncEnd"}';
+
+function sendSyncData(channel,data){
+  const msg=JSON.stringify({tipo:'syncData',data});
+  for(let i=0;i<msg.length;i+=SYNC_CHUNK)channel.send(msg.slice(i,i+SYNC_CHUNK));
+  channel.send(SYNC_END);
+}
+
+function makeMsgReceiver(onComplete){
+  let buf='';
+  return async function(raw){
+    if(raw===SYNC_END){
+      if(buf){
+        try{const full=JSON.parse(buf);if(full.tipo==='syncData')await onComplete(full.data);}
+        catch(e){console.error('recv parse',e);}
+        buf='';
+      }
+      return;
+    }
+    buf+=raw;
+  };
+}
+
+function appendSyncLog(elId,lines){
+  const el=document.getElementById(elId);if(!el)return;
+  const txt=Array.isArray(lines)?lines.join('\n'):lines;
+  el.textContent+=txt+'\n';el.scrollTop=el.scrollHeight;
+}
+
+function syncShowStep(prefix,num){
+  document.querySelectorAll('[id^="'+prefix+'"]').forEach(el=>el.classList.remove('active'));
+  const t=document.getElementById(prefix+num);if(t)t.classList.add('active');
+}
+
+// ══════════════════════════════════════════════════════
+// SYNC — WebRTC SIGNALING
+// ══════════════════════════════════════════════════════
+function sdpEncode(obj){return btoa(unescape(encodeURIComponent(JSON.stringify(obj))));}
+function sdpDecode(str){try{return JSON.parse(decodeURIComponent(escape(atob(str.trim()))));}catch(e){return null;}}
+
+const RTC_CFG={
+  iceServers:[
+    {urls:'stun:stun.l.google.com:19302'},
+    {urls:'stun:stun1.l.google.com:19302'},
+    {urls:'stun:stun.cloudflare.com:3478'}
+  ]
+};
+
+// Espera a que ICE gathering termine o a que pase el timeout (ms)
+function waitIceGathering(pc,timeoutMs=5000){
+  return new Promise(res=>{
+    if(pc.iceGatheringState==='complete'){res();return;}
+    const done=()=>{pc.removeEventListener('icegatheringstatechange',check);res();};
+    const check=()=>{if(pc.iceGatheringState==='complete')done();};
+    pc.addEventListener('icegatheringstatechange',check);
+    setTimeout(done,timeoutMs);
+  });
+}
+
+// ══════════════════════════════════════════════════════
+// SYNC — HOST (GERENTE)
+// ══════════════════════════════════════════════════════
+let _hPc=null,_hCh=null,_hIce=[];
+
+async function abrirSyncHost(){
+  closeSyncHost(false);
+  syncShowStep('syncHostStep','1');
+  document.getElementById('overlaySyncHost').classList.add('active');
+  document.getElementById('syncHostLog').textContent='';
+  document.getElementById('syncHostCloseBtn').style.display='none';
+
+  _hPc=new RTCPeerConnection(RTC_CFG);
+  _hCh=_hPc.createDataChannel('ss',{ordered:true});
+  _hIce=[];
+
+  _hCh.onopen=async()=>{
+    syncShowStep('syncHostStep','3');
+    appendSyncLog('syncHostLog','Conexion P2P abierta. Enviando inventario...');
+    const data=await getAllForSync();
+    sendSyncData(_hCh,data);
+    appendSyncLog('syncHostLog','Datos enviados. Esperando los del tecnico...');
+  };
+  _hCh.onerror=()=>appendSyncLog('syncHostLog','Error en el canal de datos.');
+  const hostRcv=makeMsgReceiver(async(remoteData)=>{
+    appendSyncLog('syncHostLog','Datos recibidos. Fusionando...');
+    const logs=await mergeRemoteData(remoteData);
+    appendSyncLog('syncHostLog',logs);
+    document.getElementById('syncHostCloseBtn').style.display='flex';
+    await renderDashboard();await updateAlertBadge();
+  });
+  _hCh.onmessage=e=>hostRcv(e.data);
+
+  _hPc.oniceconnectionstatechange=()=>{
+    if(_hPc&&(_hPc.iceConnectionState==='failed'||_hPc.iceConnectionState==='disconnected'))
+      appendSyncLog('syncHostLog','Conexion perdida ('+_hPc.iceConnectionState+')');
+  };
+
+  const offer=await _hPc.createOffer();
+  await _hPc.setLocalDescription(offer);
+
+  // Esperar ICE gathering con timeout de 5s (funciona en móvil aunque no llegue candidate=null)
+  await waitIceGathering(_hPc,5000);
+
+  const payload=sdpEncode({
+    sdp:{type:_hPc.localDescription.type,sdp:_hPc.localDescription.sdp},
+    ice:_hPc.localDescription.sdp.match(/a=candidate/g)?[]:[]
+  });
+  await drawQR('qrOferta',payload);
+}
+
+async function scanearRespuestaHost(){
+  syncShowStep('syncHostStep','1b');
+  stopScanner();
+  await startScanner('videoHost',async raw=>{
+    stopScanner();
+    await _aplicarRespuestaHost(sdpDecode(raw));
+  }).catch(()=>{toast('Camara no disponible','yellow');syncShowStep('syncHostStep','2');});
+}
+
+async function _aplicarRespuestaHost(parsed){
+  if(!parsed||!parsed.sdp){toast('Codigo de respuesta invalido','red');return;}
+  if(!_hPc){toast('No hay sesion activa','red');return;}
+  try{
+    await _hPc.setRemoteDescription(new RTCSessionDescription(parsed.sdp));
+    for(const c of (parsed.ice||[]))await _hPc.addIceCandidate(new RTCIceCandidate(c)).catch(()=>{});
+    syncShowStep('syncHostStep','3');
+    appendSyncLog('syncHostLog','Respuesta recibida. Estableciendo canal...');
+  }catch(e){toast('Error al aplicar respuesta: '+e.message,'red');console.error(e);}
+}
+
+async function procesarRespuestaManual(){
+  const raw=document.getElementById('respuestaManualInput').value.trim();
+  await _aplicarRespuestaHost(sdpDecode(raw));
+}
+
+function syncHostStep2Manual(){stopScanner();syncShowStep('syncHostStep','2');}
+
+function closeSyncHost(doClose=true){
+  stopScanner();
+  if(_hPc){try{_hPc.close();}catch(e){}_hPc=null;_hCh=null;}
+  if(doClose){document.getElementById('overlaySyncHost').classList.remove('active');syncShowStep('syncHostStep','1');}
+}
+
+// ══════════════════════════════════════════════════════
+// SYNC — JOIN (TECNICO)
+// ══════════════════════════════════════════════════════
+let _jPc=null,_jCh=null,_jIce=[],_jRespPayload='';
+
+async function abrirSyncJoin(){
+  closeSyncJoin(false);
+  syncShowStep('syncJoinStep','1');
+  document.getElementById('overlaySyncJoin').classList.add('active');
+  document.getElementById('syncJoinLog').textContent='';
+  document.getElementById('syncJoinCloseBtn').style.display='none';
+
+  // Iniciar scanner inmediatamente para no bloquear
+  startScanner('videoJoin',async raw=>{
+    await _aplicarOfertaJoin(sdpDecode(raw));
+  }).catch(()=>{});
+}
+
+async function _crearPeerJoin(){
+  if(_jPc)return; // ya existe
+  _jPc=new RTCPeerConnection(RTC_CFG);
+  _jIce=[];
+
+  _jPc.ondatachannel=e=>{
+    _jCh=e.channel;
+    _jCh.onopen=()=>{
+      syncShowStep('syncJoinStep','3');
+      appendSyncLog('syncJoinLog','Canal P2P abierto. Esperando datos del gerente...');
+    };
+    _jCh.onerror=()=>appendSyncLog('syncJoinLog','Error en el canal.');
+    const joinRcv=makeMsgReceiver(async(remoteData)=>{
+      appendSyncLog('syncJoinLog','Datos recibidos. Fusionando...');
+      const logs=await mergeRemoteData(remoteData);
+      appendSyncLog('syncJoinLog',logs);
+      const myData=await getAllForSync();
+      sendSyncData(_jCh,myData);
+      appendSyncLog('syncJoinLog','Datos enviados al gerente.');
+      document.getElementById('syncJoinCloseBtn').style.display='flex';
+      await renderDashboard();await updateAlertBadge();
+    });
+    _jCh.onmessage=e=>joinRcv(e.data);
+  };
+
+  _jPc.oniceconnectionstatechange=()=>{
+    if(_jPc&&(_jPc.iceConnectionState==='failed'||_jPc.iceConnectionState==='disconnected'))
+      appendSyncLog('syncJoinLog','Conexion perdida ('+_jPc.iceConnectionState+')');
+  };
+}
+
+async function _aplicarOfertaJoin(parsed){
+  if(!parsed||!parsed.sdp){toast('Codigo de oferta invalido','red');return;}
+  stopScanner();
+  await _crearPeerJoin();
+  try{
+    await _jPc.setRemoteDescription(new RTCSessionDescription(parsed.sdp));
+    for(const c of (parsed.ice||[]))await _jPc.addIceCandidate(new RTCIceCandidate(c)).catch(()=>{});
+    const answer=await _jPc.createAnswer();
+    await _jPc.setLocalDescription(answer);
+    appendSyncLog('syncJoinLog','Oferta procesada. Generando QR de respuesta...');
+    // Esperar ICE gathering con timeout de 5s
+    await waitIceGathering(_jPc,5000);
+    const payload=sdpEncode({
+      sdp:{type:_jPc.localDescription.type,sdp:_jPc.localDescription.sdp},
+      ice:[]
+    });
+    _jRespPayload=payload;
+    await drawQR('qrRespuesta',payload);
+    syncShowStep('syncJoinStep','2');
+    appendSyncLog('syncJoinLog','Respuesta lista. Muestrale el QR al gerente.');
+  }catch(e){toast('Error al procesar oferta: '+e.message,'red');console.error(e);}
+}
+
+async function procesarOfertaManual(){
+  const raw=document.getElementById('ofertaManualInput').value.trim();
+  await _aplicarOfertaJoin(sdpDecode(raw));
+}
+
+function syncJoinManual(){stopScanner();syncShowStep('syncJoinStep','1b');}
+
+async function copiarRespuesta(){
+  try{await navigator.clipboard.writeText(_jRespPayload);}
+  catch(e){const ta=document.createElement('textarea');ta.value=_jRespPayload;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);}
+  toast('Codigo copiado','green');
+}
+
+function closeSyncJoin(doClose=true){
+  stopScanner();
+  if(_jPc){try{_jPc.close();}catch(e){}_jPc=null;_jCh=null;_jIce=[];}
+  if(doClose){document.getElementById('overlaySyncJoin').classList.remove('active');syncShowStep('syncJoinStep','1');}
+}
+
+// ══════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════
+(async()=>{
+  try{
+    await openDB();
+    await seedIfEmpty();
+    document.getElementById('tabDashboard').style.display='flex';
+    document.getElementById('tabDashboard').style.flexDirection='column';
+  }catch(e){
+    console.error('Error al inicializar la base de datos:',e);
+    document.body.innerHTML=`<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:32px;text-align:center;gap:16px;">
+      <div style="font-size:56px;">⚠️</div>
+      <div style="font-size:20px;font-weight:800;color:#ff3b5c;">Error al iniciar SolarStock</div>
+      <div style="font-size:14px;color:#8a9bbf;max-width:280px;">No se pudo abrir la base de datos local. Asegúrate de usar un navegador actualizado y de que no estés en modo incógnito sin permisos de almacenamiento.</div>
+      <button onclick="location.reload()" style="background:#00c2ff;color:#0a0e1a;border:none;border-radius:10px;padding:12px 24px;font-size:15px;font-weight:700;cursor:pointer;"> Reintentar</button>
+    </div>`;
+  }
+})();
+</script>
+</body>
+</html>
