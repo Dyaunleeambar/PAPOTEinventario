@@ -79,6 +79,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
 .num-key{background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);padding:16px;font-size:22px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,transform .1s;}
 .num-key:active{background:var(--border);transform:scale(.94);}
 .num-key.empty{background:transparent;border:none;cursor:default;}
+.num-key.check{background:transparent;border:1px solid rgba(232,192,96,.2);color:rgba(232,192,96,.25);cursor:default;transition:background .2s,color .2s,border-color .2s,box-shadow .2s;}
+.num-key.check.ready{background:rgba(232,192,96,.12);border-color:rgba(232,192,96,.6);color:#e8c060;cursor:pointer;box-shadow:0 0 14px rgba(232,192,96,.2);}
+.num-key.check.ready:active{background:rgba(232,192,96,.25);transform:scale(.94);}
+.num-key.del{color:var(--text2);}
 .login-hint{font-size:11px;color:var(--text3);margin-top:16px;}
 .error-msg{color:var(--red);font-size:13px;font-weight:500;text-align:center;margin-bottom:10px;min-height:20px;}
 #changePinScreen{justify-content:center;align-items:center;padding:32px 24px;}
@@ -209,7 +213,7 @@ svg{flex-shrink:0;}
 <div class="num-key" onclick="numPress('1')">1</div><div class="num-key" onclick="numPress('2')">2</div><div class="num-key" onclick="numPress('3')">3</div>
 <div class="num-key" onclick="numPress('4')">4</div><div class="num-key" onclick="numPress('5')">5</div><div class="num-key" onclick="numPress('6')">6</div>
 <div class="num-key" onclick="numPress('7')">7</div><div class="num-key" onclick="numPress('8')">8</div><div class="num-key" onclick="numPress('9')">9</div>
-<div class="num-key empty"></div><div class="num-key" onclick="numPress('0')">0</div><div class="num-key" onclick="numDel()">⌫</div>
+<div class="num-key del" onclick="numDel()">⌫</div><div class="num-key" onclick="numPress('0')">0</div><div class="num-key check" id="pinCheckBtn" onclick="pinConfirm()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
 </div>
 <div class="login-hint" id="loginHint">Usa tu PIN de 4 dígitos</div>
 </div>
@@ -381,9 +385,10 @@ function alertasMsgs(ins){const msgs=[];if(ins.actual<=0)msgs.push('Sin stock di
 
 function rolLabel(rol){if(rol==='gerente')return'Gerente';if(rol==='tecnico_techo')return'Téc. Techo';if(rol==='tecnico_electrico')return'Téc. Eléctrico';return rol;}
 function selectRol(rol){currentRol=rol;document.querySelectorAll('.rol-tab').forEach(t=>t.classList.remove('active'));const map={gerente:'tabRolGerente',tecnico_techo:'tabRolTecho',tecnico_electrico:'tabRolElec'};document.getElementById(map[rol]).classList.add('active');pinBuffer='';updateDots();document.getElementById('loginError').textContent='';}
-function updateDots(){for(let i=0;i<4;i++)document.getElementById('dot'+i).classList.toggle('filled',i<pinBuffer.length);}
-function numPress(d){if(pinBuffer.length>=4||Date.now()<pinLockUntil)return;if(pinBuffer.length>=3){document.getElementById('loginHint').textContent='';}else{document.getElementById('loginHint').textContent='';}pinBuffer+=d;updateDots();if(pinBuffer.length===4)setTimeout(doLogin,100);}
+function updateDots(){for(let i=0;i<4;i++)document.getElementById('dot'+i).classList.toggle('filled',i<pinBuffer.length);const btn=document.getElementById('pinCheckBtn');if(btn){btn.classList.toggle('ready',pinBuffer.length===4);}}
+function numPress(d){if(pinBuffer.length>=4||Date.now()<pinLockUntil)return;pinBuffer+=d;updateDots();document.getElementById('loginHint').textContent='';}
 function numDel(){pinBuffer=pinBuffer.slice(0,-1);updateDots();document.getElementById('loginError').textContent='';}
+function pinConfirm(){if(pinBuffer.length===4)doLogin();}
 
 async function doLogin(){
 if(Date.now()<pinLockUntil){document.getElementById('loginError').textContent='Demasiados intentos. Espera 1 minuto.';return;}
