@@ -1,0 +1,59 @@
+{
+  "name": "SolarStock — Inventario Fotovoltaico",
+  "short_name": "SolarStock",
+  "description": "Gestión de inventario de insumos para instalaciones solares. Offline-first, sin servidor.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a0e1a",
+  "theme_color": "#0a0e1a",
+  "lang": "es",
+  "categories": ["utilities", "productivity"],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "icons/screenshot-mobile.png",
+      "sizes": "480x854",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Dashboard de SolarStock en móvil"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Nueva Entrada",
+      "short_name": "Entrada",
+      "description": "Registrar una entrada de insumo rápidamente",
+      "url": "./index.html?action=entrada",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Nueva Salida",
+      "short_name": "Salida",
+      "description": "Registrar una salida de insumo rápidamente",
+      "url": "./index.html?action=salida",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ],
+  "prefer_related_applications": false
+}
