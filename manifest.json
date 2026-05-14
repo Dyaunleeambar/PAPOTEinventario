@@ -1,7 +1,7 @@
 {
-  "name": "PAPOTE — Sistemas Solares",
+  "name": "PAPOTE Inventario",
   "short_name": "PAPOTE",
-  "description": "Gestión de inventario de insumos para instalaciones solares. PAPOTE Sistemas Solares.",
+  "description": "Gestión de inventario de insumos para instalaciones solares. PAPOTE Inventario.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
