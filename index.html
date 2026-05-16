@@ -61,8 +61,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
 .ring-warning{border:3px solid var(--yellow);box-shadow:0 0 14px rgba(255,230,0,.3);}
 .ring-critical{border:3px solid var(--red);box-shadow:0 0 14px rgba(255,59,92,.3);animation:pulse 1.5s ease-in-out infinite;}
 @keyframes pulse{0%,100%{box-shadow:0 0 14px rgba(255,59,92,.3);}50%{box-shadow:0 0 24px rgba(255,59,92,.6);}}
-@keyframes pulse-gold{0%,100%{box-shadow:0 0 0 0 rgba(232,192,96,0),0 0 12px rgba(232,192,96,.2);}50%{box-shadow:0 0 0 6px rgba(232,192,96,.15),0 0 20px rgba(232,192,96,.4);}}
-.banner-pending{animation:pulse-gold 2s ease-in-out infinite;border-color:rgba(232,192,96,.6)!important;}
+@keyframes pulse-gold{0%,100%{box-shadow:0 0 0 0 rgba(232,192,96,0),0 0 8px rgba(232,192,96,.15);}50%{box-shadow:0 0 0 5px rgba(232,192,96,.2),0 0 18px rgba(232,192,96,.5);}}
+@keyframes border-glow{0%,100%{border-color:rgba(232,192,96,.3);}50%{border-color:rgba(232,192,96,.9);}}
+.banner-pending{animation:pulse-gold 2s ease-in-out infinite,border-glow 2s ease-in-out infinite;}
 .chip{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;}
 .chip-ok{background:var(--green-dim);color:var(--green);}
 .chip-warning{background:var(--yellow-dim);color:var(--yellow);}
@@ -106,6 +107,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
 .quick-title{font-size:15px;font-weight:700;margin-bottom:10px;}
 .action-tile{background:var(--card);border-radius:var(--r);padding:14px 16px;display:flex;align-items:center;gap:14px;margin-bottom:10px;cursor:pointer;border:1px solid var(--border);transition:border-color .2s;}
 .action-tile:active{background:#0e0e0e;}
+.action-tile-pending{border-color:rgba(232,192,96,.5)!important;animation:pulse-gold 2s ease-in-out infinite,border-glow 2s ease-in-out infinite;}
+.action-tile-pending .action-icon{background:var(--brand-dim)!important;}
 .action-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
 .action-label{font-size:14px;font-weight:700;}
 .action-sub{font-size:12px;color:var(--text2);}
@@ -119,7 +122,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
 .status-dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:6px;}
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:50;display:none;align-items:flex-end;justify-content:center;}
 .overlay.active{display:flex;}
-.sheet{background:#0e0e0e;border-radius:20px 20px 0 0;padding:20px;width:100%;max-height:90vh;overflow-y:auto;border-top:1px solid var(--border);}
+.sheet{background:#0e0e0e;border-radius:20px 20px 0 0;padding:20px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;border-top:1px solid var(--border);}
 .sheet-handle{width:40px;height:4px;background:var(--border);border-radius:4px;margin:0 auto 20px;}
 .sheet-title{font-size:18px;font-weight:800;margin-bottom:20px;}
 .mov-row{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);}
@@ -448,7 +451,7 @@ if(isG){html+=`<div class="quick-title">Secciones de Inventario</div><div class=
 html+=`<div class="quick-title">Acciones Rápidas</div>`;
 if(isG){html+=`<div class="action-tile fade-up" onclick="openMovimiento('entrada')"><div class="action-icon" style="background:var(--green-dim);">${icon('down',22)}</div><div><div class="action-label">Registrar Entrada</div><div class="action-sub">Agregar stock al inventario</div></div></div>`;}
 html+=`<div class="action-tile fade-up" onclick="openMovimiento('salida')"><div class="action-icon" style="background:var(--red-dim);">${icon('up',22)}</div><div><div class="action-label">Registrar Salida</div><div class="action-sub">${isG?'Descontar stock':'Solicitar salida (requiere aprobación)'}</div></div></div>`;
-if(isG){html+=`<div class="action-tile fade-up" onclick="openPendientes()"><div class="action-icon" style="background:var(--yellow-dim);">${icon('clock',22)}</div><div><div class="action-label">Salidas Pendientes</div><div class="action-sub">Aprobar o rechazar solicitudes${pendientes.length>0?' ('+pendientes.length+')':''}</div></div></div>`;}
+if(isG){html+=`<div class="action-tile${pendientes.length>0?' action-tile-pending':''} fade-up" onclick="openPendientes()"><div class="action-icon" style="background:var(--yellow-dim);">${icon('clock',22)}</div><div><div class="action-label">Salidas Pendientes</div><div class="action-sub">Aprobar o rechazar solicitudes${pendientes.length>0?' ('+pendientes.length+')':''}</div></div></div>`;}
 if(!isG){html+=`<div class="action-tile fade-up" onclick="generarInformeWhatsApp()"><div class="action-icon" style="background:rgba(37,211,102,.12);">${icon('phone',22)}</div><div><div class="action-label">Enviar Informe al Gerente</div><div class="action-sub">Resumen del día vía WhatsApp</div></div></div><div class="action-tile fade-up" onclick="abrirDatos()"><div class="action-icon" style="background:var(--purple-dim);">${icon('refresh',22)}</div><div><div class="action-label">Sync y Respaldo</div><div class="action-sub">Exportar/Importar datos o conectar P2P</div></div></div>`;}else{html+=`<div class="action-tile fade-up" onclick="abrirDatos()"><div class="action-icon" style="background:var(--purple-dim);">${icon('refresh',22)}</div><div><div class="action-label">Datos y Respaldo</div><div class="action-sub">Sync P2P, exportar o restaurar backups</div></div></div>`;}
 document.getElementById('dashContent').innerHTML=html;
 }
