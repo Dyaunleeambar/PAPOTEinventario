@@ -3,9 +3,9 @@
 // Versión: 1.0.0 | Estrategia: Cache-First con red como fallback
 // ══════════════════════════════════════════════════════
 
-const CACHE_NAME = 'solarstock-v1';
-const CACHE_STATIC = 'solarstock-static-v1';
-const CACHE_FONTS  = 'solarstock-fonts-v1';
+const CACHE_NAME = 'solarstock-v2';
+const CACHE_STATIC = 'solarstock-static-v2';
+const CACHE_FONTS  = 'solarstock-fonts-v2';
 
 // ── Archivos del app shell (obligatorios para funcionar offline) ──
 const ASSETS_CORE = [
