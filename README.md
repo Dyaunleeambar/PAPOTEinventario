@@ -1,6 +1,6 @@
 # ☀️📦 PAPOTE — Inventario Fotovoltaico
 
-Aplicación web **completa, offline-first y progresiva (PWA)** para la gestión de inventario de insumos en instalaciones solares. Diseñada para técnicos de campo y gerentes de proyectos, permite registrar movimientos, controlar stock mínimo, generar informes diarios y sincronizar datos de múltiples formas: manual por JSON, WhatsApp, o en tiempo real por WebRTC P2P.
+Aplicación web **completa, offline-first y progresiva (PWA)** para la gestión de inventario de insumos en instalaciones solares. Diseñada para técnicos de campo y gerentes de proyectos, permite registrar movimientos, controlar stock mínimo, generar informes diarios y sincronizar datos mediante respaldos JSON e importación/exportación.
 
 > 🌐 **Funciona completamente en el navegador.** No requiere instalación, servidor ni conexión a internet.
 > 
@@ -21,8 +21,7 @@ Aplicación web **completa, offline-first y progresiva (PWA)** para la gestión 
 - 👥 **Multi-usuario con roles**: Gerente (acceso completo), Técnico Techo, Técnico Eléctrico
 - 📊 **Informes diarios por WhatsApp**: Resumen automático de movimientos y alertas para enviar directo
 - 💾 **Respaldos completos en JSON**: Exporta/importa categorías, insumos, movimientos, usuarios con fusión inteligente
-- 🔗 **Sincronización P2P en tiempo real**: Conecta dispositivos por WebRTC/QR sin servidor central
-- 📶 **Sincronización manual**: Intercambia archivos JSON vía WhatsApp o mediante QR
+- � **Sincronización manual**: Intercambia archivos JSON vía WhatsApp para sincronización entre dispositivos
 - 📱 **Interfaz responsiva**: Optimizada para móviles, tablets y escritorio
 - 🔌 **Offline completo**: Service Worker incluido para funcionamiento sin conexión
 
@@ -61,7 +60,7 @@ Aplicación web **completa, offline-first y progresiva (PWA)** para la gestión 
 |------|------------|---------|
 | **Frontend** | HTML5, CSS3, JavaScript ES6+ (Vanilla) | Sin dependencias externas, todo embebido en un único index.html |
 | **Almacenamiento** | **IndexedDB** | Base de datos local persistente en el navegador. Sincronización inteligente por timestamps |
-| **Sincronización** | **WebRTC P2P + QR** | Comunicación directa entre dispositivos sin servidor. QR para establecer conexión inicial |
+| **Sincronización** | **JSON Import/Export** | Respaldos por archivo JSON para compartir vía WhatsApp, email o almacenamiento |
 | **Transferencia Manual** | JSON (export/import) | Archivos para compartir por WhatsApp, email o almacenamiento externo |
 | **Alertas** | API de WhatsApp (`wa.me/`) | Envía informes directamente a conversaciones de WhatsApp |
 | **Offline** | **Service Worker** | Cache strategy: network-first para sincronización, cache-first para assets |
@@ -194,7 +193,6 @@ Todo el código está integrado en **index.html** por simplicidad y máxima port
 **Datos & Respaldo:**
 - **Tab Manual**: Exporta/importa datos de técnicos vía WhatsApp
 - **Tab Avanzado**: Backup completo y restauración con fusión inteligente
-- **Sync P2P**: Conecta por QR con otros dispositivos en red
 
 ### 👷 Para Técnicos (Techo/Eléctrico)
 
@@ -223,13 +221,12 @@ Todo el código está integrado en **index.html** por simplicidad y máxima port
 
 **Sync Datos:**
 - **Manual**: Exporta movimientos para enviar a gerente
-- **P2P**: Conecta directamente por QR (si gerente también está en app)
 
 ---
 
 ## 🔄 Sincronización de Datos
 
-### Opción 1: Manual por WhatsApp (Recomendado para zonas sin WiFi)
+### Opción 1: Manual por WhatsApp (Recomendado)
 
 1. **Técnico exporta** → "Datos y Respaldo" → "Manual" → "Exportar mis movimientos"
 2. Genera JSON y comparte por WhatsApp
@@ -237,22 +234,7 @@ Todo el código está integrado en **index.html** por simplicidad y máxima port
 4. Selecciona archivo JSON
 5. Stock se recalcula automáticamente
 
-### Opción 2: P2P en Tiempo Real (Existe WiFi/LTE)
-
-**Gerente inicia:**
-1. "Datos y Respaldo" → "Sync P2P" → Muestra QR
-2. Técnico escanea con "Escanear QR"
-3. Técnico muestra su QR de respuesta
-4. Gerente escanea
-5. ¡Conectados! Los datos se sincronizan automáticamente
-
-**Cómo funciona:**
-- WebRTC establece canal P2P directo (sin servidor)
-- Los datos se intercambian de ambos lados
-- Fusión inteligente: Gana el registro más reciente (por timestamp)
-- Funciona offline, sincroniza cuando hay conexión
-
-### Opción 3: Respaldo Completo (Todas las tiendas)
+### Opción 2: Respaldo Completo (Todas las tiendas)
 
 1. **Exportar**: "Datos y Respaldo" → "Avanzado" → "Exportar Backup Completo"
    - Incluye: Categorías, insumos, entradas, salidas, usuarios
@@ -404,7 +386,7 @@ Proporciona:
 
 - Carga inicial: 1–2 segundos (dependiendo de dispositivo)
 - Interacciones: 0–200ms (instantáneo)
-- Sincronización P2P: 2–5 segundos (depende de WiFi)
+- Sincronización manual (import/export): 1–3 segundos
 
 ---
 
@@ -497,7 +479,6 @@ npx http-server
 
 ## 🚀 Roadmap / Funcionalidades Futuras
 
-- [ ] **Sincronización P2P completa** (WebRTC, QR scanning)
 - [ ] **Generación de reportes PDF**
 - [ ] **Gráficos de tendencias** (stock a lo largo del tiempo)
 - [ ] **Notificaciones push** para alertas críticas
