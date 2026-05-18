@@ -113,7 +113,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
 .shelf-cat-title{font-size:15px;font-weight:800;color:var(--brand);letter-spacing:.8px;text-transform:uppercase;padding:14px 0 10px;display:flex;align-items:center;gap:8px;}
 .shelf-cat-title::after{content:'';flex:1;height:1px;background:rgba(232,192,96,.15);}
 .shelf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-.shelf-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);padding:10px 8px 10px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;transition:border-color .2s,background .2s;position:relative;min-height:110px;}
+.shelf-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);padding:10px 8px 10px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;transition:border-color .2s,background .2s;position:relative;min-height:140px;}
 .shelf-card:active{background:rgba(232,192,96,.05);}
 .shelf-card.ok{border-color:rgba(0,255,148,.2);}
 .shelf-card.warning{border-color:rgba(255,230,0,.35);}
@@ -124,7 +124,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
 .shelf-card-bar{width:100%;height:4px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden;}
 .shelf-card-bar-fill{height:100%;border-radius:4px;transition:width .3s;}
 .shelf-card-badge{position:absolute;top:6px;right:6px;width:7px;height:7px;border-radius:50%;}
-.shelf-card-actions{display:flex;gap:4px;width:100%;margin-top:2px;}
+.shelf-card-actions{display:flex;gap:4px;width:100%;margin-top:auto;}
 .shelf-card-actions button{flex:1;padding:4px 0;font-size:9px;border-radius:6px;border:none;cursor:pointer;font-weight:700;}
 .action-tile-pending{border-color:rgba(232,192,96,.5)!important;animation:pulse-gold 2s ease-in-out infinite,border-glow 2s ease-in-out infinite;}
 .action-tile-pending .action-icon{background:var(--brand-dim)!important;}

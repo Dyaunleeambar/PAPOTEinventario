@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAPOTE Icon Generator</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #e5e5e5;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #e8c060;
+            margin-bottom: 30px;
+        }
+        .preview {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 40px 0;
+        }
+        .icon-item {
+            background: rgba(232, 192, 96, 0.05);
+            border: 1px solid rgba(232, 192, 96, 0.2);
+            border-radius: 12px;
+            padding: 30px;
+        }
+        .icon-item h3 {
+            color: #e8c060;
+            margin-top: 20px;
+        }
+        canvas {
+            border: 1px solid rgba(232, 192, 96, 0.1);
+            border-radius: 8px;
+            background: #0a0a0a;
+        }
+        button {
+            background: #e8c060;
+            color: #0a0a0a;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background: #c89830;
+            transform: translateY(-2px);
+        }
+        .status {
+            margin-top: 30px;
+            padding: 15px;
+            background: rgba(0, 255, 148, 0.1);
+            border: 1px solid rgba(0, 255, 148, 0.3);
+            border-radius: 8px;
+            display: none;
+        }
+        .status.show {
+            display: block;
+        }
+        .status.success {
+            background: rgba(0, 255, 148, 0.1);
+            border-color: rgba(0, 255, 148, 0.3);
+            color: #00ff94;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎨 PAPOTE Icon Generator</h1>
+    <p style="color: #9ca3af;">Genera los iconos PNG para la PWA</p>
+
+    <div class="preview">
+        <div class="icon-item">
+            <h3>192x192</h3>
+            <canvas id="canvas192" width="192" height="192"></canvas>
+            <button onclick="downloadIcon(192)">Descargar 192x192</button>
+        </div>
+        <div class="icon-item">
+            <h3>512x512</h3>
+            <canvas id="canvas512" width="512" height="512"></canvas>
+            <button onclick="downloadIcon(512)">Descargar 512x512</button>
+        </div>
+    </div>
+
+    <div class="status success" id="status">
+        ✓ Icono descargado correctamente
+    </div>
+
+    <button onclick="downloadAll()" style="margin-top: 20px; background: #c89830;">⬇️ Descargar Todos (192, 512, Maskable)</button>
+
+    <script>
+        function drawPapoteIcon(canvas) {
+            const ctx = canvas.getContext('2d');
+            const size = canvas.width;
+            
+            // Colors
+            const bg = '#0a0a0a';
+            const circleBright = '#e8c060';
+            const circleDark = '#c89830';
+            const pMain = '#e8c060';
+            const pDark = '#c89830';
+            const pDarker = '#a87818';
+            
+            // Background
+            ctx.fillStyle = bg;
+            ctx.fillRect(0, 0, size, size);
+            
+            // Rounded corners
+            const radius = size * 0.22;
+            ctx.strokeStyle = 'rgba(0,0,0,0)';
+            ctx.beginPath();
+            ctx.moveTo(radius, 0);
+            ctx.lineTo(size - radius, 0);
+            ctx.quadraticCurveTo(size, 0, size, radius);
+            ctx.lineTo(size, size - radius);
+            ctx.quadraticCurveTo(size, size, size - radius, size);
+            ctx.lineTo(radius, size);
+            ctx.quadraticCurveTo(0, size, 0, size - radius);
+            ctx.lineTo(0, radius);
+            ctx.quadraticCurveTo(0, 0, radius, 0);
+            ctx.closePath();
+            ctx.fillStyle = bg;
+            ctx.fill();
+            
+            // Draw circles
+            const center = size / 2;
+            const outerRadius = size * 0.39;
+            const innerRadius = size * 0.36;
+            
+            // Outer circle
+            ctx.strokeStyle = circleBright;
+            ctx.lineWidth = size * 0.024;
+            ctx.beginPath();
+            ctx.arc(center, center, outerRadius, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // Inner circle
+            ctx.strokeStyle = circleDark;
+            ctx.lineWidth = size * 0.004;
+            ctx.beginPath();
+            ctx.arc(center, center, innerRadius, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // Scale for P symbol
+            const scale = size / 512;
+            
+            // Draw P main body
+            ctx.fillStyle = pMain;
+            ctx.beginPath();
+            ctx.moveTo(center - 40*scale, center - 80*scale);
+            ctx.lineTo(center + 20*scale, center - 80*scale);
+            ctx.lineTo(center + 80*scale, center - 20*scale);
+            ctx.lineTo(center + 80*scale, center + 40*scale);
+            ctx.lineTo(center + 40*scale, center + 60*scale);
+            ctx.lineTo(center - 40*scale, center + 60*scale);
+            ctx.closePath();
+            ctx.fill();
+            
+            // Draw right face (dark)
+            ctx.fillStyle = pDark;
+            ctx.beginPath();
+            ctx.moveTo(center + 20*scale, center - 80*scale);
+            ctx.lineTo(center + 80*scale, center - 20*scale);
+            ctx.lineTo(center + 80*scale, center + 40*scale);
+            ctx.lineTo(center + 40*scale, center + 60*scale);
+            ctx.lineTo(center + 40*scale, center - 60*scale);
+            ctx.closePath();
+            ctx.fill();
+            
+            // Draw bottom face
+            ctx.fillStyle = pDarker;
+            ctx.beginPath();
+            ctx.moveTo(center - 40*scale, center + 60*scale);
+            ctx.lineTo(center + 40*scale, center + 60*scale);
+            ctx.lineTo(center + 40*scale, center + 40*scale);
+            ctx.lineTo(center - 40*scale, center + 40*scale);
+            ctx.closePath();
+            ctx.fill();
+            
+            // Draw left bar
+            ctx.fillStyle = pMain;
+            ctx.beginPath();
+            ctx.moveTo(center - 60*scale, center - 40*scale);
+            ctx.lineTo(center - 40*scale, center - 40*scale);
+            ctx.lineTo(center - 40*scale, center + 40*scale);
+            ctx.lineTo(center - 60*scale, center + 40*scale);
+            ctx.closePath();
+            ctx.fill();
+        }
+        
+        function downloadIcon(size) {
+            const canvasId = size === 192 ? 'canvas192' : 'canvas512';
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.href = canvas.toDataURL('image/png');
+            link.download = `icon-${size}.png`;
+            link.click();
+            
+            const status = document.getElementById('status');
+            status.classList.add('show');
+            setTimeout(() => status.classList.remove('show'), 3000);
+        }
+        
+        function downloadAll() {
+            downloadIcon(192);
+            setTimeout(() => downloadIcon(512), 500);
+            
+            // También descarga maskable
+            const canvas = document.getElementById('canvas512');
+            const link = document.createElement('a');
+            link.href = canvas.toDataURL('image/png');
+            link.download = 'icon-512-maskable.png';
+            setTimeout(() => link.click(), 1000);
+        }
+        
+        // Initialize
+        window.addEventListener('load', () => {
+            drawPapoteIcon(document.getElementById('canvas192'));
+            drawPapoteIcon(document.getElementById('canvas512'));
+        });
+    </script>
+</body>
+</html>
